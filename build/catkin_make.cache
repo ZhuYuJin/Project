@@ -1,0 +1,2 @@
+car_move
+-DCATKIN_DEVEL_PREFIX=/home/zhuyujin/test/devel -DCMAKE_INSTALL_PREFIX=/home/zhuyujin/test/install -G Unix Makefiles

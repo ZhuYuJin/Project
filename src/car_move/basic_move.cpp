@@ -15,11 +15,6 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 
 	// delay(5000);
 
-	pinMode(7, OUTPUT);
-	pinMode(0, OUTPUT);
-	pinMode(2, OUTPUT);
-	pinMode(3, OUTPUT);
-
 	digitalWrite(7, 0);
 	digitalWrite(0, 1);
 	digitalWrite(2, 0);
@@ -30,6 +25,13 @@ int main(int argc, char **argv){
 
 	ros::init(argc, argv, "basic_move");
 
+	wiringPiSetup();
+
+	pinMode(7, OUTPUT);
+	pinMode(0, OUTPUT);
+	pinMode(2, OUTPUT);
+	pinMode(3, OUTPUT);
+
 	ros::NodeHandle n;
 
 	ros::Subscriber sub = n.subscribe("move_chatter", 1000, moveCallback);
@@ -38,7 +40,7 @@ int main(int argc, char **argv){
 
 	// RaspiRobot::init();
 
-	wiringPiSetup();
+	
 
 	return 0;
 }

@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <wiringPi.h>
-#include <softPwm.h>
+// #include <softPwm.h>
 
 #define uchar unsigned char
 
@@ -60,8 +60,8 @@ bool RaspiRobot::init()
 	pinMode(LEFT_OUT_PIN, OUTPUT);
 	pinMode(RIGHT_IN_PIN, OUTPUT);
 	pinMode(RIGHT_OUT_PIN, OUTPUT);
-	softPwmCreate(LEFT_EN_PWM, 10, 255);
-	softPwmCreate(RIGHT_EN_PWM, 10, 255);
+	// softPwmCreate(LEFT_EN_PWM, 10, 255);
+	// softPwmCreate(RIGHT_EN_PWM, 10, 255);
 	return true;
 }
 
@@ -71,8 +71,8 @@ void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rig
 	digitalWrite(LEFT_OUT_PIN, leftOut);
 	digitalWrite(RIGHT_IN_PIN, rightIn);
 	digitalWrite(RIGHT_OUT_PIN, rightOut);
-	softPwmWrite(LEFT_EN_PWM, leftEn);
-	softPwmWrite(RIGHT_EN_PWM, rightEn);
+	// softPwmWrite(LEFT_EN_PWM, leftEn);
+	// softPwmWrite(RIGHT_EN_PWM, rightEn);
 }
 
 void RaspiRobot::stop()

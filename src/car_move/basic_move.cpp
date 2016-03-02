@@ -1,4 +1,4 @@
-// #include "RobotController.h"
+#include "RobotBasicController.h"
 #include <stdio.h>
 #include <wiringPi.h>
 #include "ros/ros.h"
@@ -7,8 +7,13 @@
 void moveCallback(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("I heard: [%s]", msg->data.c_str());
 
-	// RaspiRobot::getInstance()->forwardByTime(10);
+	RaspiRobot::getInstance()->forwardBySpeed(50);
 	
+	delay(5000);
+
+	RaspiRobot::getInstance()->forwardBySpeed(150);
+
+	delay(5000);
 }
 
 int main(int argc, char **argv){
@@ -21,22 +26,7 @@ int main(int argc, char **argv){
 
 	ros::spin();
 
-	// RaspiRobot::init();
-
-
-	wiringPiSetup();
-
-	pinMode(7,OUTPUT);
-	pinMode(0,OUTPUT);
-	pinMode(2,OUTPUT);
-	pinMode(3,OUTPUT);
-	
-	digitalWrite(7, HIGH);
-	digitalWrite(0, LOW);
-	digitalWrite(2, HIGH);
-	digitalWrite(3, LOW);
-	
-	delay(5000);
+	RaspiRobot::init();
 
 	return 0;
 }

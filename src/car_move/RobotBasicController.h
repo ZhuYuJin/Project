@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <wiringPi.h>
-// #include <softPwm.h>
+#include <softPwm.h>
 
 #define uchar unsigned char
 

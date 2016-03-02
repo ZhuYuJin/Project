@@ -60,8 +60,8 @@ bool RaspiRobot::init()
 	pinMode(LEFT_OUT_PIN, OUTPUT);
 	pinMode(RIGHT_IN_PIN, OUTPUT);
 	pinMode(RIGHT_OUT_PIN, OUTPUT);
-	softPwmCreate(LEFT_EN_PWM, 0, 255);
-	softPwmCreate(RIGHT_EN_PWM, 0, 255);
+	softPwmCreate(LEFT_EN_PWM, 10, 255);
+	softPwmCreate(RIGHT_EN_PWM, 10, 255);
 	return true;
 }
 

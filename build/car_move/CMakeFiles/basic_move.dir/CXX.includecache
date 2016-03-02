@@ -11,6 +11,8 @@ stdio.h
 -
 wiringPi.h
 -
+softPwm.h
+-
 
 /home/zhuyujin/test/src/car_move/basic_move.cpp
 RobotBasicController.h

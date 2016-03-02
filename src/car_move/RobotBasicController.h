@@ -60,8 +60,8 @@ bool RaspiRobot::init()
 	pinMode(LEFT_OUT_PIN, OUTPUT);
 	pinMode(RIGHT_IN_PIN, OUTPUT);
 	pinMode(RIGHT_OUT_PIN, OUTPUT);
-	// softPwmCreate(LEFT_EN_PWM, 10, 255);
-	// softPwmCreate(RIGHT_EN_PWM, 10, 255);
+	softPwmCreate(LEFT_EN_PWM, 0, 100);
+	softPwmCreate(RIGHT_EN_PWM, 0, 100);
 	return true;
 }
 
@@ -71,8 +71,8 @@ void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rig
 	digitalWrite(LEFT_OUT_PIN, leftOut);
 	digitalWrite(RIGHT_IN_PIN, rightIn);
 	digitalWrite(RIGHT_OUT_PIN, rightOut);
-	// softPwmWrite(LEFT_EN_PWM, leftEn);
-	// softPwmWrite(RIGHT_EN_PWM, rightEn);
+	softPwmWrite(LEFT_EN_PWM, leftEn);
+	softPwmWrite(RIGHT_EN_PWM, rightEn);
 }
 
 void RaspiRobot::stop()
@@ -85,7 +85,7 @@ void RaspiRobot::forwardBySpeed(int speed)
 	setMotors(1,0,1,0,speed,speed);
 }
 
-void RaspiRobot::forwardByTimeAndSpeed(float sec, int speed = 100)
+void RaspiRobot::forwardByTimeAndSpeed(float sec, int speed = 50)
 {
 	setMotors(1,0,1,0,speed,speed);
 	if(sec>0)
@@ -100,7 +100,7 @@ void RaspiRobot::reverseBySpeed(int speed)
 	setMotors(0,1,0,1,speed,speed);
 }
 
-void RaspiRobot::reverseByTimeAndSpeed(float sec, int speed = 100)
+void RaspiRobot::reverseByTimeAndSpeed(float sec, int speed = 50)
 {
 	setMotors(0,1,0,1,speed,speed);
 	if(sec>0)

@@ -7,11 +7,11 @@
 void moveCallback(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("I heard: [%s]", msg->data.c_str());
 
-	RaspiRobot::getInstance()->forwardBySpeed(50);
+	RaspiRobot::getInstance()->forwardBySpeed(40);
 	
 	delay(5000);
 
-	RaspiRobot::getInstance()->forwardBySpeed(150);
+	RaspiRobot::getInstance()->forwardBySpeed(100);
 
 	delay(5000);
 }

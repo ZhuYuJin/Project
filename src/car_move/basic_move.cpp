@@ -14,6 +14,16 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 	// RaspiRobot::getInstance()->forwardBySpeed(150);
 
 	// delay(5000);
+
+	pinMode(7, OUTPUT);
+	pinMode(0, OUTPUT);
+	pinMode(2, OUTPUT);
+	pinMode(3, OUTPUT);
+
+	digitalWrite(7, 0);
+	digitalWrite(0, 1);
+	digitalWrite(2, 0);
+	digitalWrite(3, 1);
 }
 
 int main(int argc, char **argv){
@@ -29,16 +39,6 @@ int main(int argc, char **argv){
 	// RaspiRobot::init();
 
 	wiringPiSetup();
-
-	pinMode(7, OUTPUT);
-	pinMode(0, OUTPUT);
-	pinMode(2, OUTPUT);
-	pinMode(3, OUTPUT);
-
-	digitalWrite(7, 1);
-	digitalWrite(0, 0);
-	digitalWrite(2, 1);
-	digitalWrite(3, 0);
 
 	return 0;
 }

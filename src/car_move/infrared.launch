@@ -1,0 +1,4 @@
+<launch>
+   <node pkg="car_move" name="infraredTest" type="infraredTest" output="screen"/>
+
+</launch>

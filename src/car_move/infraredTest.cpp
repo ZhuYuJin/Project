@@ -13,9 +13,7 @@
 
 int main(int argc, char **argv){
 
-	ros::init(argc, argv, "basic_move");
-
-	RaspiRobot::init();
+	ros::init(argc, argv, "infraredTest");
 
 	if(wiringPiSetup()<0)
 		return false;

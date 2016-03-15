@@ -164,6 +164,20 @@ basic_move/fast:
 .PHONY : basic_move/fast
 
 # Convenience name for target.
+car_move/CMakeFiles/infraredTest.dir/rule:
+	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/infraredTest.dir/rule
+.PHONY : car_move/CMakeFiles/infraredTest.dir/rule
+
+# Convenience name for target.
+infraredTest: car_move/CMakeFiles/infraredTest.dir/rule
+.PHONY : infraredTest
+
+# fast build rule for target.
+infraredTest/fast:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/infraredTest.dir/build.make car_move/CMakeFiles/infraredTest.dir/build
+.PHONY : infraredTest/fast
+
+# Convenience name for target.
 car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
 	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 .PHONY : car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
@@ -327,6 +341,30 @@ basic_move.cpp.s:
 	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/basic_move.dir/build.make car_move/CMakeFiles/basic_move.dir/basic_move.cpp.s
 .PHONY : basic_move.cpp.s
 
+infraredTest.o: infraredTest.cpp.o
+.PHONY : infraredTest.o
+
+# target to build an object file
+infraredTest.cpp.o:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/infraredTest.dir/build.make car_move/CMakeFiles/infraredTest.dir/infraredTest.cpp.o
+.PHONY : infraredTest.cpp.o
+
+infraredTest.i: infraredTest.cpp.i
+.PHONY : infraredTest.i
+
+# target to preprocess a source file
+infraredTest.cpp.i:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/infraredTest.dir/build.make car_move/CMakeFiles/infraredTest.dir/infraredTest.cpp.i
+.PHONY : infraredTest.cpp.i
+
+infraredTest.s: infraredTest.cpp.s
+.PHONY : infraredTest.s
+
+# target to generate assembly for a file
+infraredTest.cpp.s:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/infraredTest.dir/build.make car_move/CMakeFiles/infraredTest.dir/infraredTest.cpp.s
+.PHONY : infraredTest.cpp.s
+
 test_move.o: test_move.cpp.o
 .PHONY : test_move.o
 
@@ -359,6 +397,7 @@ help:
 	@echo "... depend"
 	@echo "... basic_move"
 	@echo "... edit_cache"
+	@echo "... infraredTest"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
@@ -378,6 +417,9 @@ help:
 	@echo "... basic_move.o"
 	@echo "... basic_move.i"
 	@echo "... basic_move.s"
+	@echo "... infraredTest.o"
+	@echo "... infraredTest.i"
+	@echo "... infraredTest.s"
 	@echo "... test_move.o"
 	@echo "... test_move.i"
 	@echo "... test_move.s"

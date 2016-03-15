@@ -10,6 +10,7 @@
 #define LOW				0
 
 #define INFRARED_DO		12
+#define LED1			13
 
 int main(int argc, char **argv){
 
@@ -18,15 +19,14 @@ int main(int argc, char **argv){
 	if(wiringPiSetup()<0)
 		return false;
 
-	pinMode(INFRARED_DO, OUTPUT);
-
-	digitalWrite(INFRARED_DO, HIGH);
-	delay(5000);
-	digitalWrite(INFRARED_DO, LOW);
-	delay(5000);
-	digitalWrite(INFRARED_DO, HIGH);
+	pinMode(INFRARED_DO, INPUT);
+	pinMode(LED1, OUTPUT);
 
 	ROS_INFO("I heard: infrared");
+
+	while(true){
+		digitalWrite(LED1, digitalRead(INFRARED_DO));
+	}
 
 	return 0;
 }

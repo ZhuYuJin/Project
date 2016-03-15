@@ -5,6 +5,7 @@
 /home/zhuyujin/test/build/CMakeFiles/doxygen.dir
 /home/zhuyujin/test/build/gtest/CMakeFiles/gtest.dir
 /home/zhuyujin/test/build/gtest/CMakeFiles/gtest_main.dir
+/home/zhuyujin/test/build/car_move/CMakeFiles/infraredTest.dir
 /home/zhuyujin/test/build/car_move/CMakeFiles/roscpp_generate_messages_cpp.dir
 /home/zhuyujin/test/build/car_move/CMakeFiles/roscpp_generate_messages_lisp.dir
 /home/zhuyujin/test/build/car_move/CMakeFiles/roscpp_generate_messages_py.dir

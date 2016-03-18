@@ -24,7 +24,7 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 	// ROS_INFO("I heard: [%s %f]", msg->data.c_str(), f);
 
 	if(f < 10.0){
-		RaspiRobot::getInstance()->rotate_clockwise(180.0, 20, 20.0);
+		RaspiRobot::getInstance()->rotate_clockwise(180.0, 50, 20.0);
 	}
 
 	pthread_mutex_unlock(&qlock); 

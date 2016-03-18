@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <wiringPi.h>
 #include <softPwm.h>
+#include <sys/time.h>
 
 # define M_PI       	3.14159265358979323846
 
@@ -16,6 +17,8 @@
 #define RIGHT_OUT_PIN	3
 #define	LEFT_EN_PWM		1
 #define RIGHT_EN_PWM	4
+#define TRIGGER_PIN		21
+#define ECHO_PIN		22
 
 using namespace std;
 
@@ -26,7 +29,7 @@ class RaspiRobot
 		int direction;
 		RaspiRobot();
 		void setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn);
-
+		float getDistance(float minDistance,float maxDistance,int count,int maxLoop);
 	public:
 		static bool init();
 		static RaspiRobot *getInstance();
@@ -38,6 +41,7 @@ class RaspiRobot
 		void turnLeft(float degree, float speed, float speed_t, float wheelbase);
 		void turnRight(float degree, float speed, float speed_t, float wheelbase);
 		void rotate_clockwise(float degree, int speed, float wheelbase);
+		float getDistance();
 };
 
 RaspiRobot *RaspiRobot::getInstance()
@@ -159,4 +163,58 @@ void RaspiRobot::rotate_clockwise(float degree, int speed, float wheelbase)
 		delay((int)(sec*1000));
 		stop();
 	}
+}
+
+float RaspiRobot::getDistance(float minDistance,float maxDistance,int count,int maxLoop)
+{
+	int successfulCount=0;
+	float totalDistance=0;
+	struct timeval t1,t2;
+	
+	while(maxLoop--)
+	{
+		digitalWrite(TRIGGER_PIN,LOW);
+		delayMicroseconds(2);
+		digitalWrite(TRIGGER_PIN,HIGH);
+		delayMicroseconds(10);
+		digitalWrite(TRIGGER_PIN,LOW);
+		
+		int countdown=2000000;
+		while(digitalRead(ECHO_PIN)!=HIGH&&countdown>0)
+		{
+			countdown--;
+			//Without pulseIn() function on Arduino, so we can only wait here
+		}
+		if(countdown==0)
+			continue;
+		gettimeofday(&t1,NULL);
+
+		countdown=5000000;
+		while(digitalRead(ECHO_PIN)!=LOW&&countdown>0)
+		{
+			countdown--;
+			//Without pulseIn() function on Arduino, so we can only wait here
+		}
+		if(countdown==0)
+			continue;
+		gettimeofday(&t2,NULL);
+		
+		int startMicrosecond=t1.tv_sec*1000000+t1.tv_usec;
+		int endMicrosecond=t2.tv_sec*1000000+t2.tv_usec;
+		float distance=(endMicrosecond-startMicrosecond)/58.8235;
+		
+		if(distance<minDistance||distance>maxDistance)
+			continue;
+		successfulCount++;
+		totalDistance+=distance;
+		
+		if(successfulCount==count)
+			return totalDistance/count;
+	}
+	return -1;
+}
+
+float RaspiRobot::getDistance()
+{
+	return getDistance(2.0,450.0,10,20);
 }

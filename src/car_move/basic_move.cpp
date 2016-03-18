@@ -5,15 +5,18 @@
 #include "std_msgs/String.h"
 
 void moveCallback(const std_msgs::String::ConstPtr& msg){
-	ROS_INFO("I heard: [%s]", msg->data.c_str());
 
-	RaspiRobot::getInstance()->forwardBySpeed(40);
+	// RaspiRobot::getInstance()->forwardBySpeed(40);
 	
-	delay(5000);
+	// delay(5000);
 
-	RaspiRobot::getInstance()->forwardBySpeed(100);
+	// RaspiRobot::getInstance()->forwardBySpeed(100);
 
-	delay(5000);
+	// delay(5000);
+
+	float f = RaspiRobot::getInstance()->getDistance();
+
+	ROS_INFO("I heard: [%s %f]", msg->data.c_str(), f);
 }
 
 int main(int argc, char **argv){

@@ -27,6 +27,8 @@ ros/ros.h
 /home/zhuyujin/test/src/car_move/ros/ros.h
 std_msgs/String.h
 /home/zhuyujin/test/src/car_move/std_msgs/String.h
+pthread.h
+-
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h

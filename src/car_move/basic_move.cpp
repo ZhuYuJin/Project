@@ -3,6 +3,9 @@
 #include <wiringPi.h>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include <pthread.h>  
+
+pthread_mutex_t qlock = PTHREAD_MUTEX_INITIALIZER;    //初始构造锁  
 
 void moveCallback(const std_msgs::String::ConstPtr& msg){
 
@@ -14,9 +17,17 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 
 	// delay(5000);
 
+	pthread_mutex_lock(&qlock);
+
 	float f = RaspiRobot::getInstance()->getDistance();
 
-	ROS_INFO("I heard: [%s %f]", msg->data.c_str(), f);
+	// ROS_INFO("I heard: [%s %f]", msg->data.c_str(), f);
+
+	if(f < 10.0){
+		RaspiRobot::getInstance()->rotate_clockwise(180.0, 20, 20.0);
+	}
+
+	pthread_mutex_unlock(&qlock); 
 }
 
 int main(int argc, char **argv){

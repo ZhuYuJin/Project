@@ -201,8 +201,8 @@ float RaspiRobot::getDistance(float minDistance,float maxDistance,int count,int 
 			continue;
 		gettimeofday(&t2,NULL);
 		
-		int startMicrosecond=t1.tv_sec*1000000+t1.tv_usec;
-		int endMicrosecond=t2.tv_sec*1000000+t2.tv_usec;
+		long startMicrosecond=t1.tv_sec*1000000+t1.tv_usec;
+		long endMicrosecond=t2.tv_sec*1000000+t2.tv_usec;
 		float distance=(endMicrosecond-startMicrosecond)/58.8235;
 		
 		if(distance<minDistance||distance>maxDistance)

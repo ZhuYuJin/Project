@@ -1,0 +1,8 @@
+prefix=/home/zhuyujin/test/devel
+
+Name: usb_cam
+Description: Description of usb_cam
+Version: 0.3.4
+Cflags: -I/home/zhuyujin/test/src/usb_cam/include
+Libs: -L/home/zhuyujin/test/devel/lib -lusb_cam
+Requires: 

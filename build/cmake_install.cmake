@@ -118,6 +118,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/zhuyujin/test/build/gtest/cmake_install.cmake")
   INCLUDE("/home/zhuyujin/test/build/car_move/cmake_install.cmake")
+  INCLUDE("/home/zhuyujin/test/build/usb_cam/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

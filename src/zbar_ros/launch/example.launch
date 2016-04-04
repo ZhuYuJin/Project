@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="nodelet" type="nodelet" name="zbar_manager"  args="manager"/>
+
+    <!-- Example camera launch -->
+<!--
+    <node pkg="nodelet" type="nodelet" name="uvc_camera" args="load uvc_camera/CameraNodelet zbar_manager">
+        <remap from="image_raw" to="image"/>
+    </node>
+-->
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="mjpeg" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="framerate" value="30"/>
+  </node>
+  <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+    <remap from="image" to="/usb_cam/image_raw"/>
+    <param name="autosize" value="true" />
+  </node>
+
+    <!--<node pkg="nodelet" type="nodelet" name="barcode_reader" args="load zbar_ros/barcode_reader_nodelet zbar_manager">-->
+        <!--<param name="throttle_repeated_barcodes" type="double" value="2.0"/>-->
+    <!--</node>-->
+
+    <node pkg="zbar_ros" type="barcode_reader_node" name="barcode_reader" output="screen">
+        <param name="throttle_repeated_barcodes" type="double" value="2.0"/>
+    </node>
+
+    <node pkg="car_move" type="zbarTest" name="zbarTest" output="screen">
+    </node>
+
+</launch>

@@ -1,2 +1,2 @@
-car_move:usb_cam
+car_move:usb_cam:zbar_ros
 -DCATKIN_DEVEL_PREFIX=/home/zhuyujin/test/devel -DCMAKE_INSTALL_PREFIX=/home/zhuyujin/test/install -G Unix Makefiles

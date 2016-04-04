@@ -317,6 +317,20 @@ test_move/fast:
 	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/test_move.dir/build.make car_move/CMakeFiles/test_move.dir/build
 .PHONY : test_move/fast
 
+# Convenience name for target.
+car_move/CMakeFiles/zbarTest.dir/rule:
+	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/zbarTest.dir/rule
+.PHONY : car_move/CMakeFiles/zbarTest.dir/rule
+
+# Convenience name for target.
+zbarTest: car_move/CMakeFiles/zbarTest.dir/rule
+.PHONY : zbarTest
+
+# fast build rule for target.
+zbarTest/fast:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/zbarTest.dir/build.make car_move/CMakeFiles/zbarTest.dir/build
+.PHONY : zbarTest/fast
+
 basic_move.o: basic_move.cpp.o
 .PHONY : basic_move.o
 
@@ -389,6 +403,30 @@ test_move.cpp.s:
 	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/test_move.dir/build.make car_move/CMakeFiles/test_move.dir/test_move.cpp.s
 .PHONY : test_move.cpp.s
 
+zbarTest.o: zbarTest.cpp.o
+.PHONY : zbarTest.o
+
+# target to build an object file
+zbarTest.cpp.o:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/zbarTest.dir/build.make car_move/CMakeFiles/zbarTest.dir/zbarTest.cpp.o
+.PHONY : zbarTest.cpp.o
+
+zbarTest.i: zbarTest.cpp.i
+.PHONY : zbarTest.i
+
+# target to preprocess a source file
+zbarTest.cpp.i:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/zbarTest.dir/build.make car_move/CMakeFiles/zbarTest.dir/zbarTest.cpp.i
+.PHONY : zbarTest.cpp.i
+
+zbarTest.s: zbarTest.cpp.s
+.PHONY : zbarTest.s
+
+# target to generate assembly for a file
+zbarTest.cpp.s:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/zbarTest.dir/build.make car_move/CMakeFiles/zbarTest.dir/zbarTest.cpp.s
+.PHONY : zbarTest.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -414,6 +452,7 @@ help:
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... test"
 	@echo "... test_move"
+	@echo "... zbarTest"
 	@echo "... basic_move.o"
 	@echo "... basic_move.i"
 	@echo "... basic_move.s"
@@ -423,6 +462,9 @@ help:
 	@echo "... test_move.o"
 	@echo "... test_move.i"
 	@echo "... test_move.s"
+	@echo "... zbarTest.o"
+	@echo "... zbarTest.i"
+	@echo "... zbarTest.s"
 .PHONY : help
 
 

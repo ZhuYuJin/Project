@@ -1,0 +1,8 @@
+prefix=/home/zhuyujin/test/install
+
+Name: zbar_ros
+Description: Description of zbar_ros
+Version: 0.0.5
+Cflags: -I/home/zhuyujin/test/install/include
+Libs: -L/home/zhuyujin/test/install/lib -lbarcode_reader_nodelet
+Requires: nodelet cv_bridge roscpp

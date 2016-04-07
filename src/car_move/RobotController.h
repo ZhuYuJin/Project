@@ -17,6 +17,7 @@
 #define OC2_PIN 2
 #define TRIGGER_PIN 1
 #define ECHO_PIN 4
+#define VOLTAGE_PIN 5
 
 using namespace std;
 
@@ -48,6 +49,7 @@ class RaspiRobot
 		void setOC1(unsigned char state);
 		void setOC2(unsigned char state);
 		float getDistance();
+		uint getVoltage();
 };
 
 
@@ -70,6 +72,7 @@ bool RaspiRobot::init()
 	pinMode(OC2_PIN,OUTPUT);
 	pinMode(TRIGGER_PIN,OUTPUT);
 	pinMode(ECHO_PIN,INPUT);
+	pinMode(VOLTAGE_PIN,INPUT);
 	return true;
 }
 
@@ -240,4 +243,9 @@ float RaspiRobot::getDistance(float minDistance,float maxDistance,int count,int 
 float RaspiRobot::getDistance()
 {
 	return getDistance(2.0,450.0,10,20);
+}
+
+uint RaspiRobot::getVoltage()
+{
+	return (uint)digitalRead(VOLTAGE_PIN);
 }

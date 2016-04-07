@@ -226,5 +226,5 @@ float RaspiRobot::getDistance()
 
 unsigned int RaspiRobot::getVoltage()
 {
-	return (unsigned int)digitalRead(VOLTAGE_PIN);
+	return (unsigned int)analogRead(VOLTAGE_PIN);
 }

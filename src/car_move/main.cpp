@@ -33,6 +33,7 @@ int getRegionFromCam(){
 	while(!barcode_exist && degree < 360.0){
 		degree += 15.0;
 		RaspiRobot::getInstance()->rotate_clockwise(degree, 50, 20);
+		ros::spinOnce();
 		delay(5000);
 	}
 	if(degree < 360.0){
@@ -136,7 +137,7 @@ int main(int argc, char **argv){
 	ros::Subscriber sub_bar = n.subscribe("barcode", 1000, barcodeCheck);
 	ros::Subscriber sub_inf = n.subscribe("infrared", 1000, infraredCheck);
 
-	ros::spin();
+	ros::spinOnce();
 
 	region = getRegionFromCam();
 

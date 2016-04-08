@@ -178,6 +178,20 @@ infraredTest/fast:
 .PHONY : infraredTest/fast
 
 # Convenience name for target.
+car_move/CMakeFiles/main.dir/rule:
+	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/main.dir/rule
+.PHONY : car_move/CMakeFiles/main.dir/rule
+
+# Convenience name for target.
+main: car_move/CMakeFiles/main.dir/rule
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/main.dir/build.make car_move/CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+# Convenience name for target.
 car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
 	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 .PHONY : car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
@@ -379,6 +393,30 @@ infraredTest.cpp.s:
 	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/infraredTest.dir/build.make car_move/CMakeFiles/infraredTest.dir/infraredTest.cpp.s
 .PHONY : infraredTest.cpp.s
 
+main.o: main.cpp.o
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/main.dir/build.make car_move/CMakeFiles/main.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/main.dir/build.make car_move/CMakeFiles/main.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/main.dir/build.make car_move/CMakeFiles/main.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 test_move.o: test_move.cpp.o
 .PHONY : test_move.o
 
@@ -440,6 +478,7 @@ help:
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
+	@echo "... main"
 	@echo "... rebuild_cache"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
@@ -459,6 +498,9 @@ help:
 	@echo "... infraredTest.o"
 	@echo "... infraredTest.i"
 	@echo "... infraredTest.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... test_move.o"
 	@echo "... test_move.i"
 	@echo "... test_move.s"

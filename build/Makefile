@@ -280,6 +280,19 @@ infraredTest/fast:
 .PHONY : infraredTest/fast
 
 #=============================================================================
+# Target rules for targets named main
+
+# Build rule for target.
+main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	$(MAKE) -f car_move/CMakeFiles/main.dir/build.make car_move/CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+#=============================================================================
 # Target rules for targets named roscpp_generate_messages_cpp
 
 # Build rule for target.
@@ -718,6 +731,7 @@ help:
 	@echo "... gtest_main"
 	@echo "... basic_move"
 	@echo "... infraredTest"
+	@echo "... main"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_py"

@@ -7,7 +7,11 @@
 #include <pthread.h>  
 #include <sys/time.h>
 
-#define pi 3.14159262653589793238462643383279
+#define PI 3.14159262653589793238462643383279
+
+#define RIGHT 2
+#define MIDDLE 1
+#define LEFT 0
 
 using namespace std;
 
@@ -15,8 +19,8 @@ using namespace std;
 bool barcode_exist = false;
 float barcode_distance;
 
-double ang_r = 75, ang_c = 45; //a->maximum horizontal angle    b->maximum vertical angle
-int row, col; //row->maximum horizontal pixel number    col->maximum vertical pixel number
+double ang_r = 59, ang_c = 44.332; //ang_r->maximum horizontal angle    ang_c->maximum vertical angle
+int row, col; //row->mximum horizontal pixel number    col->maximum vertical pixel number
 int xc1, yc1, xc2, yc2;	//positions of feature points in the picture(described by pixel number)
 
 double z, d; //d->edge of barcode	z->distance of barcode(to be solved)
@@ -27,17 +31,19 @@ float infrared_distance;
 
 /* region */
 bool region;
+int sideFromBarcode;
 
 int getRegionFromCam(){
-	float degree = 0;
+	float degree = 0.0;
+	float unit_degree = 15.0;
 	while(!barcode_exist && degree < 360.0){
-		degree += 15.0;
-		RaspiRobot::getInstance()->rotate_clockwise(degree, 50, 20);
+		degree += unit_degree;
+		RaspiRobot::getInstance()->rotate_clockwise(unit_degree, 50, 20);
 		ros::spinOnce();
-		delay(5000);
+		delay(1500);
 	}
 	if(degree < 360.0){
-		if(barcode_distance > 100.0){
+		if(barcode_distance > 80.0){
 			return 3;
 		}else if(barcode_distance > 50){
 			return 2;
@@ -58,31 +64,31 @@ void getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, i
 	double k_mid, p_mid, k1, p1, k2, p2, k3, p3, k4, p4;
 	xc1 = x_mid;
 	yc1 = y_mid;
-	k_mid = (2*xc1-row) * tan(double(ang_r)/double(360)*pi) / row;
-	p_mid = (2*yc1-col) * tan(double(ang_c)/double(360)*pi) / col;
+	k_mid = (2*xc1-row) * tan(double(ang_r)/double(360)*PI) / row;
+	p_mid = (2*yc1-col) * tan(double(ang_c)/double(360)*PI) / col;
 
 	xc2 = x1;
 	yc2 = y1;
-	k1 = (2*xc2-row) * tan(double(ang_r)/double(360)*pi) / row;
-	p1 = (2*yc2-col) * tan(double(ang_c)/double(360)*pi) / col;
+	k1 = (2*xc2-row) * tan(double(ang_r)/double(360)*PI) / row;
+	p1 = (2*yc2-col) * tan(double(ang_c)/double(360)*PI) / col;
 	z += sqrt(pow(d,2) / (pow((k_mid-k1),2) + pow((p_mid-p1),2)));
 
 	xc2 = x2;
 	yc2 = y2;
-	k2 = (2*xc2-row) * tan(double(ang_r)/double(360)*pi) / row;
-	p2 = (2*yc2-col) * tan(double(ang_c)/double(360)*pi) / col;
+	k2 = (2*xc2-row) * tan(double(ang_r)/double(360)*PI) / row;
+	p2 = (2*yc2-col) * tan(double(ang_c)/double(360)*PI) / col;
 	z += sqrt(pow(d,2) / (pow((k_mid-k2),2) + pow((p_mid-p2),2)));
 
 	xc2 = x3;
 	yc2 = y3;
-	k3 = (2*xc2-row) * tan(double(ang_r)/double(360)*pi) / row;
-	p3 = (2*yc2-col) * tan(double(ang_c)/double(360)*pi) / col;
+	k3 = (2*xc2-row) * tan(double(ang_r)/double(360)*PI) / row;
+	p3 = (2*yc2-col) * tan(double(ang_c)/double(360)*PI) / col;
 	z += sqrt(pow(d,2) / (pow((k_mid-k3),2) + pow((p_mid-p3),2)));
 
 	xc2 = x4;
 	yc2 = y4;
-	k4 = (2*xc2-row) * tan(double(ang_r)/double(360)*pi) / row;
-	p4 = (2*yc2-col) * tan(double(ang_c)/double(360)*pi) / col;
+	k4 = (2*xc2-row) * tan(double(ang_r)/double(360)*PI) / row;
+	p4 = (2*yc2-col) * tan(double(ang_c)/double(360)*PI) / col;
 	z += sqrt(pow(d,2) / (pow((k_mid-k4),2) + pow((p_mid-p4),2)));
 
 	z = z/4;
@@ -119,6 +125,21 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 	getDistance(mid_x, mid_y, x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4, 9.825);
 
 	barcode_distance = z;
+
+	/*
+		X2       	X1
+			X_mid
+		X3       	X4
+	*/
+	int y_l = y_3-y_2;
+	int y_r = y_4-y_1;
+	if(y_l < y_r){
+		sideFromBarcode = RIGHT;
+	}else if(y_l == y_r){
+		sideFromBarcode = MIDDLE;
+	}else{
+		sideFromBarcode = LEFT;
+	}
 }
 
 void infraredCheck(const std_msgs::String::ConstPtr& msg){
@@ -141,7 +162,21 @@ int main(int argc, char **argv){
 
 	region = getRegionFromCam();
 
-	ROS_INFO("Region: [%d]", region);
+	while(region == 0){
+		//randomwalk
+		region = getRegionFromCam();
+	}
+
+	while( region && (barcode_distance>20.0) ){
+		if(region == 3){
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(2, 80);
+		}else if(region == 2){
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
+		}else if(region == 1){
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 40);
+		}
+		region = getRegionFromCam();
+	}
 
 	return 0;
 }

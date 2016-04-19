@@ -25,15 +25,15 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 
 	if(f < 10.0){
 
-		RaspiRobot::getInstance()->turnLeft(30.0, 50.0, 50.0, 20.0);
+		RaspiRobot::getInstance()->turnLeft(360.0, 50.0, 50.0, 50.0);
 
-		RaspiRobot::getInstance()->turnRight(30.0, 50.0, 50.0, 20.0);
+		RaspiRobot::getInstance()->turnRight(360.0, 50.0, 50.0, 50.0);
 	
 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(5, 50.0);
 
-		RaspiRobot::getInstance()->turnRight(30.0, 50.0, 50.0, 20.0);
+		RaspiRobot::getInstance()->turnRight(360.0, 50.0, 50.0, 50.0);
 
-		RaspiRobot::getInstance()->turnLeft(30.0, 50.0, 50.0, 20.0);
+		RaspiRobot::getInstance()->turnLeft(360.0, 50.0, 50.0, 50.0);
 	}
 
 	pthread_mutex_unlock(&qlock); 

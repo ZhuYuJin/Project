@@ -192,6 +192,20 @@ main/fast:
 .PHONY : main/fast
 
 # Convenience name for target.
+car_move/CMakeFiles/readVoltage.dir/rule:
+	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/readVoltage.dir/rule
+.PHONY : car_move/CMakeFiles/readVoltage.dir/rule
+
+# Convenience name for target.
+readVoltage: car_move/CMakeFiles/readVoltage.dir/rule
+.PHONY : readVoltage
+
+# fast build rule for target.
+readVoltage/fast:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readVoltage.dir/build.make car_move/CMakeFiles/readVoltage.dir/build
+.PHONY : readVoltage/fast
+
+# Convenience name for target.
 car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
 	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 .PHONY : car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
@@ -417,6 +431,30 @@ main.cpp.s:
 	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/main.dir/build.make car_move/CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+readVoltage.o: readVoltage.cpp.o
+.PHONY : readVoltage.o
+
+# target to build an object file
+readVoltage.cpp.o:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readVoltage.dir/build.make car_move/CMakeFiles/readVoltage.dir/readVoltage.cpp.o
+.PHONY : readVoltage.cpp.o
+
+readVoltage.i: readVoltage.cpp.i
+.PHONY : readVoltage.i
+
+# target to preprocess a source file
+readVoltage.cpp.i:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readVoltage.dir/build.make car_move/CMakeFiles/readVoltage.dir/readVoltage.cpp.i
+.PHONY : readVoltage.cpp.i
+
+readVoltage.s: readVoltage.cpp.s
+.PHONY : readVoltage.s
+
+# target to generate assembly for a file
+readVoltage.cpp.s:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readVoltage.dir/build.make car_move/CMakeFiles/readVoltage.dir/readVoltage.cpp.s
+.PHONY : readVoltage.cpp.s
+
 test_move.o: test_move.cpp.o
 .PHONY : test_move.o
 
@@ -479,6 +517,7 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... main"
+	@echo "... readVoltage"
 	@echo "... rebuild_cache"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
@@ -501,6 +540,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... readVoltage.o"
+	@echo "... readVoltage.i"
+	@echo "... readVoltage.s"
 	@echo "... test_move.o"
 	@echo "... test_move.i"
 	@echo "... test_move.s"

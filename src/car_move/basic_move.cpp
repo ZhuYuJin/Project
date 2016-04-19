@@ -19,19 +19,22 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 
 	pthread_mutex_lock(&qlock);
 
-	unsigned int v = RaspiRobot::getInstance()->getVoltage();
+	double f = RaspiRobot::getInstance()->getDistance();
 
-	ROS_INFO("I heard: [%s %d]", msg->data.c_str(), v);
+	ROS_INFO("I know the distance is: [%f]", f);
 
-	// if(f < 10.0){
-	// 	RaspiRobot::getInstance()->rotate_clockwise(360.0, 50, 20.0);
+	if(f < 10.0){
 
-	// 	RaspiRobot::getInstance()->turnLeft(360.0, 50.0, 50.0, 20.0);
+		RaspiRobot::getInstance()->turnLeft(30.0, 50.0, 50.0, 20.0);
 
-	// 	RaspiRobot::getInstance()->turnRight(360.0, 50.0, 50.0, 20.0);
+		RaspiRobot::getInstance()->turnRight(30.0, 50.0, 50.0, 20.0);
+	
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(5, 50.0);
 
-	// 	RaspiRobot::getInstance()->reverseByTimeAndSpeed(5, 50.0);
-	// }
+		RaspiRobot::getInstance()->turnRight(30.0, 50.0, 50.0, 20.0);
+
+		RaspiRobot::getInstance()->turnLeft(30.0, 50.0, 50.0, 20.0);
+	}
 
 	pthread_mutex_unlock(&qlock); 
 }

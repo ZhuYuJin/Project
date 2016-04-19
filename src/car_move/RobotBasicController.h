@@ -19,7 +19,6 @@
 #define RIGHT_EN_PWM	4
 #define TRIGGER_PIN		21
 #define ECHO_PIN		22
-#define VOLTAGE_PIN 	5
 
 using namespace std;
 
@@ -75,7 +74,6 @@ bool RaspiRobot::init()
 	softPwmCreate(RIGHT_EN_PWM, 0, 100);
 	pinMode(TRIGGER_PIN, OUTPUT);
 	pinMode(ECHO_PIN, INPUT);
-	pinMode(VOLTAGE_PIN,INPUT);
 	return true;
 }
 
@@ -222,9 +220,4 @@ float RaspiRobot::getDistance(float minDistance,float maxDistance,int count,int 
 float RaspiRobot::getDistance()
 {
 	return getDistance(2.0,450.0,10,20);
-}
-
-unsigned int RaspiRobot::getVoltage()
-{
-	return (unsigned int)analogRead(VOLTAGE_PIN);
 }

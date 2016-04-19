@@ -1,0 +1,10 @@
+<launch>
+   <node pkg="rosserial_python" name="serial_node" type="serial_node.py">
+		<param name="port" value="/dev/ttyUSB0"/>
+   		<param name="baud" value="57600"/>
+   </node>
+
+   <node pkg="car_move" name="readVoltage" type="readVoltage" output="screen">
+   </node> 
+
+</launch>

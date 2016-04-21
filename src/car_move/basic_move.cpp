@@ -17,26 +17,27 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 
 	// delay(5000);
 
-	pthread_mutex_lock(&qlock);
+	// pthread_mutex_lock(&qlock);
 
 	double f = RaspiRobot::getInstance()->getDistance();
 
 	ROS_INFO("I know the distance is: [%f]", f);
 
-	if(f < 10.0){
+	// if(f < 10.0){
 
-		RaspiRobot::getInstance()->turnLeft(360.0, 50.0, 50.0, 50.0);
+	// 	RaspiRobot::getInstance()->turnLeft(360.0, 50.0, 50.0, 50.0);
 
-		RaspiRobot::getInstance()->turnRight(360.0, 50.0, 50.0, 50.0);
+	// 	RaspiRobot::getInstance()->turnRight(360.0, 50.0, 50.0, 50.0);
 	
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(5, 50.0);
+	// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(5, 50.0);
 
-		RaspiRobot::getInstance()->turnRight(360.0, 50.0, 50.0, 50.0);
+	// 	RaspiRobot::getInstance()->turnRight(360.0, 50.0, 50.0, 50.0);
 
-		RaspiRobot::getInstance()->turnLeft(360.0, 50.0, 50.0, 50.0);
-	}
+	// 	RaspiRobot::getInstance()->turnLeft(360.0, 50.0, 50.0, 50.0);
 
-	pthread_mutex_unlock(&qlock); 
+	// }
+
+	// pthread_mutex_unlock(&qlock); 
 }
 
 int main(int argc, char **argv){
@@ -50,6 +51,14 @@ int main(int argc, char **argv){
 	ros::Subscriber sub = n.subscribe("move_chatter", 1000, moveCallback);
 
 	ros::spin();
+
+	RaspiRobot::getInstance()->forwardBySpeed(100);
+
+	delay(20000);
+
+	RaspiRobot::getInstance()->forwardBySpeed(50);
+
+	delay(20000);
 
 	return 0;
 }

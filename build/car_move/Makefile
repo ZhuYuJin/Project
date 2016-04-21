@@ -192,6 +192,20 @@ main/fast:
 .PHONY : main/fast
 
 # Convenience name for target.
+car_move/CMakeFiles/readEncoder.dir/rule:
+	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/readEncoder.dir/rule
+.PHONY : car_move/CMakeFiles/readEncoder.dir/rule
+
+# Convenience name for target.
+readEncoder: car_move/CMakeFiles/readEncoder.dir/rule
+.PHONY : readEncoder
+
+# fast build rule for target.
+readEncoder/fast:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/build
+.PHONY : readEncoder/fast
+
+# Convenience name for target.
 car_move/CMakeFiles/readVoltage.dir/rule:
 	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/readVoltage.dir/rule
 .PHONY : car_move/CMakeFiles/readVoltage.dir/rule
@@ -431,6 +445,30 @@ main.cpp.s:
 	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/main.dir/build.make car_move/CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+readEncoder.o: readEncoder.cpp.o
+.PHONY : readEncoder.o
+
+# target to build an object file
+readEncoder.cpp.o:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/readEncoder.cpp.o
+.PHONY : readEncoder.cpp.o
+
+readEncoder.i: readEncoder.cpp.i
+.PHONY : readEncoder.i
+
+# target to preprocess a source file
+readEncoder.cpp.i:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/readEncoder.cpp.i
+.PHONY : readEncoder.cpp.i
+
+readEncoder.s: readEncoder.cpp.s
+.PHONY : readEncoder.s
+
+# target to generate assembly for a file
+readEncoder.cpp.s:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/readEncoder.cpp.s
+.PHONY : readEncoder.cpp.s
+
 readVoltage.o: readVoltage.cpp.o
 .PHONY : readVoltage.o
 
@@ -517,6 +555,7 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... main"
+	@echo "... readEncoder"
 	@echo "... readVoltage"
 	@echo "... rebuild_cache"
 	@echo "... roscpp_generate_messages_cpp"
@@ -540,6 +579,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... readEncoder.o"
+	@echo "... readEncoder.i"
+	@echo "... readEncoder.s"
 	@echo "... readVoltage.o"
 	@echo "... readVoltage.i"
 	@echo "... readVoltage.s"

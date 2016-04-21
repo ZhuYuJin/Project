@@ -293,6 +293,19 @@ main/fast:
 .PHONY : main/fast
 
 #=============================================================================
+# Target rules for targets named readEncoder
+
+# Build rule for target.
+readEncoder: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 readEncoder
+.PHONY : readEncoder
+
+# fast build rule for target.
+readEncoder/fast:
+	$(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/build
+.PHONY : readEncoder/fast
+
+#=============================================================================
 # Target rules for targets named readVoltage
 
 # Build rule for target.
@@ -745,6 +758,7 @@ help:
 	@echo "... basic_move"
 	@echo "... infraredTest"
 	@echo "... main"
+	@echo "... readEncoder"
 	@echo "... readVoltage"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"

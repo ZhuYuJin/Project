@@ -8,7 +8,7 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 
 int main(int argc, char **argv){
 
-	ros::init(argc, argv, "basic_move");
+	ros::init(argc, argv, "voltage_reader");
 
 	ros::NodeHandle n;
 

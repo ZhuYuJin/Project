@@ -323,6 +323,7 @@ clean: gtest/CMakeFiles/gtest_main.dir/clean
 car_move/all: car_move/CMakeFiles/basic_move.dir/all
 car_move/all: car_move/CMakeFiles/infraredTest.dir/all
 car_move/all: car_move/CMakeFiles/main.dir/all
+car_move/all: car_move/CMakeFiles/readEncoder.dir/all
 car_move/all: car_move/CMakeFiles/readVoltage.dir/all
 car_move/all: car_move/CMakeFiles/test_move.dir/all
 car_move/all: car_move/CMakeFiles/zbarTest.dir/all
@@ -332,6 +333,7 @@ car_move/all: car_move/CMakeFiles/zbarTest.dir/all
 car_move/clean: car_move/CMakeFiles/basic_move.dir/clean
 car_move/clean: car_move/CMakeFiles/infraredTest.dir/clean
 car_move/clean: car_move/CMakeFiles/main.dir/clean
+car_move/clean: car_move/CMakeFiles/readEncoder.dir/clean
 car_move/clean: car_move/CMakeFiles/readVoltage.dir/clean
 car_move/clean: car_move/CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 car_move/clean: car_move/CMakeFiles/roscpp_generate_messages_lisp.dir/clean
@@ -456,13 +458,48 @@ clean: car_move/CMakeFiles/main.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target car_move/CMakeFiles/readEncoder.dir
+
+# All Build rule for target.
+car_move/CMakeFiles/readEncoder.dir/all:
+	$(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/depend
+	$(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  8
+	@echo "Built target readEncoder"
+.PHONY : car_move/CMakeFiles/readEncoder.dir/all
+
+# Include target in all.
+all: car_move/CMakeFiles/readEncoder.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+car_move/CMakeFiles/readEncoder.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zhuyujin/test/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/readEncoder.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zhuyujin/test/build/CMakeFiles 0
+.PHONY : car_move/CMakeFiles/readEncoder.dir/rule
+
+# Convenience name for target.
+readEncoder: car_move/CMakeFiles/readEncoder.dir/rule
+.PHONY : readEncoder
+
+# clean rule for target.
+car_move/CMakeFiles/readEncoder.dir/clean:
+	$(MAKE) -f car_move/CMakeFiles/readEncoder.dir/build.make car_move/CMakeFiles/readEncoder.dir/clean
+.PHONY : car_move/CMakeFiles/readEncoder.dir/clean
+
+# clean rule for target.
+clean: car_move/CMakeFiles/readEncoder.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target car_move/CMakeFiles/readVoltage.dir
 
 # All Build rule for target.
 car_move/CMakeFiles/readVoltage.dir/all:
 	$(MAKE) -f car_move/CMakeFiles/readVoltage.dir/build.make car_move/CMakeFiles/readVoltage.dir/depend
 	$(MAKE) -f car_move/CMakeFiles/readVoltage.dir/build.make car_move/CMakeFiles/readVoltage.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  8
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  9
 	@echo "Built target readVoltage"
 .PHONY : car_move/CMakeFiles/readVoltage.dir/all
 
@@ -776,7 +813,7 @@ clean: car_move/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 car_move/CMakeFiles/test_move.dir/all:
 	$(MAKE) -f car_move/CMakeFiles/test_move.dir/build.make car_move/CMakeFiles/test_move.dir/depend
 	$(MAKE) -f car_move/CMakeFiles/test_move.dir/build.make car_move/CMakeFiles/test_move.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  9
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  10
 	@echo "Built target test_move"
 .PHONY : car_move/CMakeFiles/test_move.dir/all
 
@@ -811,7 +848,7 @@ clean: car_move/CMakeFiles/test_move.dir/clean
 car_move/CMakeFiles/zbarTest.dir/all:
 	$(MAKE) -f car_move/CMakeFiles/zbarTest.dir/build.make car_move/CMakeFiles/zbarTest.dir/depend
 	$(MAKE) -f car_move/CMakeFiles/zbarTest.dir/build.make car_move/CMakeFiles/zbarTest.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  12
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  13
 	@echo "Built target zbarTest"
 .PHONY : car_move/CMakeFiles/zbarTest.dir/all
 
@@ -1151,7 +1188,7 @@ clean: usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/clean
 usb_cam/CMakeFiles/usb_cam.dir/all:
 	$(MAKE) -f usb_cam/CMakeFiles/usb_cam.dir/build.make usb_cam/CMakeFiles/usb_cam.dir/depend
 	$(MAKE) -f usb_cam/CMakeFiles/usb_cam.dir/build.make usb_cam/CMakeFiles/usb_cam.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  10
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  11
 	@echo "Built target usb_cam"
 .PHONY : usb_cam/CMakeFiles/usb_cam.dir/all
 
@@ -1186,7 +1223,7 @@ clean: usb_cam/CMakeFiles/usb_cam.dir/clean
 usb_cam/CMakeFiles/usb_cam_node.dir/all: usb_cam/CMakeFiles/usb_cam.dir/all
 	$(MAKE) -f usb_cam/CMakeFiles/usb_cam_node.dir/build.make usb_cam/CMakeFiles/usb_cam_node.dir/depend
 	$(MAKE) -f usb_cam/CMakeFiles/usb_cam_node.dir/build.make usb_cam/CMakeFiles/usb_cam_node.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  11
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zhuyujin/test/build/CMakeFiles  12
 	@echo "Built target usb_cam_node"
 .PHONY : usb_cam/CMakeFiles/usb_cam_node.dir/all
 

@@ -30,5 +30,7 @@ int main(int argc, char **argv){
 
 	delay(20000);
 
+	RaspiRobot::getInstance()->stop();
+
 	return 0;
 }

@@ -4,10 +4,16 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 
+bool speed_read = false;
+int speed_count = 0;
+
 void moveCallback(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("I heard: [%s]", msg->data.c_str());
 
-	ros::spinOnce();
+	speed_count++;
+	if(speed_count > 5){
+		speed_read = true;
+	}
 }
 
 int main(int argc, char **argv){
@@ -20,15 +26,17 @@ int main(int argc, char **argv){
 
 	ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
 
-	ros::spinOnce();
+	while(!speed_read) {
+		RaspiRobot::getInstance()->forwardBySpeed(100);
+		ros::spinOnce();
+	}
 
-	RaspiRobot::getInstance()->forwardBySpeed(100);
-
-	delay(20000);
-
-	RaspiRobot::getInstance()->forwardBySpeed(50);
-
-	delay(20000);
+	speed_read = false; speed_count = 0;
+	while(!speed_read) {
+		RaspiRobot::getInstance()->forwardBySpeed(50);
+		ros::spinOnce();
+	}
+	ROS_INFO("I heard: [%s]", "shutdown");
 
 	RaspiRobot::getInstance()->stop();
 

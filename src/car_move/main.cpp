@@ -34,18 +34,21 @@ bool region;
 int sideFromBarcode;
 
 int getRegionFromCam(){
+	ros::spinOnce();
+	delay(1500);
+
 	float degree = 0.0;
 	float unit_degree = 15.0;
 	while(!barcode_exist && degree < 360.0){
 		degree += unit_degree;
-		RaspiRobot::getInstance()->rotate_clockwise(unit_degree, 50, 20);
+		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
 		ros::spinOnce();
 		delay(1500);
 	}
 	if(degree < 360.0){
 		if(barcode_distance > 80.0){
 			return 3;
-		}else if(barcode_distance > 50){
+		}else if(barcode_distance > 50.0){
 			return 2;
 		}else{
 			return 1;
@@ -53,6 +56,8 @@ int getRegionFromCam(){
 	}else{
 		return 0;
 	}
+
+	barcode_exist = false;
 }
 
 void getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, double distance){
@@ -142,9 +147,48 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 	}
 }
 
-void infraredCheck(const std_msgs::String::ConstPtr& msg){
-	ROS_INFO("I heard: [%s]", msg->data.c_str());
-	infrared_exist = true;
+// void infraredCheck(const std_msgs::String::ConstPtr& msg){
+// 	ROS_INFO("I heard: [%s]", msg->data.c_str());
+// 	infrared_exist = true;
+// }
+
+bool obstacleDetected(){
+	//getBarcodeInfo
+	ros::spinOnce();
+	delay(1500);
+
+	bool is_block = false;
+
+	//get the distance of the block
+	float distance = 0.0;
+	for(int i = 0 ; i < 5; i++){
+		distance += RaspiRobot::getInstance()->getDistance();
+	}
+	distance /= 5;
+
+	//if distance is smaller than 15 and bigger than 0. 
+	//Barcode does not exist at the same time. 
+	//We have the conclusion that block exists.
+	if(distance <= 15.0 && distance >= 0 && !barcode_exist){
+		is_block = true;
+	}
+
+	barcode_exist = false;
+	return is_block;
+}
+
+void avoidObstacle(){
+	bool is_block = obstacleDetected();
+	if(is_block){
+		RaspiRobot::getInstance()->turnLeft(45);
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, 50);
+		RaspiRobot::getInstance()->turnRight(45);
+		avoidObstacle();
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
+		RaspiRobot::getInstance()->turnRight(45);
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, 50);
+		RaspiRobot::getInstance()->turnLeft(45);
+	}
 }
 
 int main(int argc, char **argv){
@@ -156,27 +200,37 @@ int main(int argc, char **argv){
 	ros::NodeHandle n;
 
 	ros::Subscriber sub_bar = n.subscribe("barcode", 1000, barcodeCheck);
-	ros::Subscriber sub_inf = n.subscribe("infrared", 1000, infraredCheck);
+	// ros::Subscriber sub_inf = n.subscribe("infrared", 1000, infraredCheck);
 
-	ros::spinOnce();
+	// region = getRegionFromCam();
 
-	region = getRegionFromCam();
+	// while(region == 0){
+	// 	//randomwalk
+	// 	region = getRegionFromCam();
+	// }
 
-	while(region == 0){
-		//randomwalk
-		region = getRegionFromCam();
-	}
+	// while( region && (barcode_distance>20.0) ){
+	// 	if(region == 3){
+	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(2, 80);
+	// 	}else if(region == 2){
+	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
+	// 	}else if(region == 1){
+	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 40);
+	// 	}
+	// 	region = getRegionFromCam();
+	// }
+	bool have_avoid = false;
 
-	while( region && (barcode_distance>20.0) ){
-		if(region == 3){
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(2, 80);
-		}else if(region == 2){
+	while(!have_avoid){
+		if(obstacleDetected()){
+			avoidObstacle();
+			have_avoid = true;
+		}else{
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
-		}else if(region == 1){
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 40);
 		}
-		region = getRegionFromCam();
 	}
+
+	RaspiRobot::getInstance()->stop();
 
 	return 0;
 }

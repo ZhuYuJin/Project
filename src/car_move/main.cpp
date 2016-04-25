@@ -162,10 +162,23 @@ bool obstacleDetected(){
 
 	//get the distance of the block
 	float distance = 0.0;
-	for(int i = 0 ; i < 5; i++){
-		distance += RaspiRobot::getInstance()->getDistance();
+	float temp = 0.0;
+	float distance_max = 0.0;
+	float distance_min = 9999.0;
+	for(int i = 0 ; i < 7; i++){
+		temp = RaspiRobot::getInstance()->getDistance();
+		if(temp > distance_max){
+			distance_max = temp;
+		}
+		if(temp < distance_min){
+			distance_min = temp;
+		}
+		distance += temp;
 	}
+	distance -= distance_min;
+	distance -= distance_max;
 	distance /= 5;
+	ROS_INFO("I heard: [%f]", distance);
 
 	//if distance is smaller than 15 and bigger than 0. 
 	//Barcode does not exist at the same time. 

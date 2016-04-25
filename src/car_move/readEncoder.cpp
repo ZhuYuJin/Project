@@ -29,7 +29,7 @@ int main(int argc, char **argv){
 	ros::NodeHandle n;
 
 	ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
-	ros::Subscriber vol_sub = n.subscribe("voltage_reader", 5000, volCallback);
+	// ros::Subscriber vol_sub = n.subscribe("voltage_reader", 1000, volCallback);
 
 	while(!speed_read) {
 		RaspiRobot::getInstance()->forwardBySpeed(70);

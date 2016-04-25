@@ -23,6 +23,7 @@
 //speed of the car: 50-30cm/s 100-50cm/s
 #define HALF_SPEED		30
 #define FULL_SPEED		50
+#define WHEEL_BASE		20
 
 using namespace std;
 
@@ -127,7 +128,7 @@ void RaspiRobot::reverseByTimeAndSpeed(float sec, int speed = 50)
 }
 
 //degree = 30, speed = 40, speed_t = 20, wheelbase = 15.2
-void RaspiRobot::turnLeft(float degree, float speed = 30.0, float speed_t = 20.0, float wheelbase = 20.0)
+void RaspiRobot::turnLeft(float degree, float speed = HALF_SPEED, float speed_t = FULL_SPEED-HALF_SPEED, float wheelbase = WHEEL_BASE)
 {
 	float r = (speed * wheelbase) / speed_t;//distance of the left wheel from the circle center
 	float d_r = (((wheelbase + r) * degree) / 180.0) * M_PI;
@@ -145,7 +146,7 @@ void RaspiRobot::turnLeft(float degree, float speed = 30.0, float speed_t = 20.0
 }
 
 //degree = 30, speed = 40, speed_t = 20, wheelbase = 15.2
-void RaspiRobot::turnRight(float degree, float speed = 30.0, float speed_t = 20.0, float wheelbase = 20.0)
+void RaspiRobot::turnRight(float degree, float speed = HALF_SPEED, float speed_t = FULL_SPEED-HALF_SPEED, float wheelbase = WHEEL_BASE)
 {
 	float r = (speed * wheelbase) / speed_t;//distance of the right wheel from the circle center
 	float d_l = (((wheelbase + r) * degree) / 180.0) * M_PI;
@@ -162,7 +163,7 @@ void RaspiRobot::turnRight(float degree, float speed = 30.0, float speed_t = 20.
 	}
 }
 
-void RaspiRobot::rotate_clockwise(float degree, int speed = 30.0, float wheelbase = 20.0)
+void RaspiRobot::rotate_clockwise(float degree, int speed = HALF_SPEED, float wheelbase = 20.0)
 {
 	float d = (degree / 360.0) * wheelbase * M_PI;
 	float sec = d / speed;

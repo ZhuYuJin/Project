@@ -197,38 +197,45 @@ int main(int argc, char **argv){
 
 	RaspiRobot::init(); //init robot controller
 
-	ros::NodeHandle n;
+	// ros::NodeHandle n;
 
-	ros::Subscriber sub_bar = n.subscribe("barcode", 1000, barcodeCheck);
-	// ros::Subscriber sub_inf = n.subscribe("infrared", 1000, infraredCheck);
+	// ros::Subscriber sub_bar = n.subscribe("barcode", 1000, barcodeCheck);
+	// // ros::Subscriber sub_inf = n.subscribe("infrared", 1000, infraredCheck);
 
-	// region = getRegionFromCam();
+	// // region = getRegionFromCam();
 
-	// while(region == 0){
-	// 	//randomwalk
-	// 	region = getRegionFromCam();
-	// }
+	// // while(region == 0){
+	// // 	//randomwalk
+	// // 	region = getRegionFromCam();
+	// // }
 
-	// while( region && (barcode_distance>20.0) ){
-	// 	if(region == 3){
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(2, 80);
-	// 	}else if(region == 2){
+	// // while( region && (barcode_distance>20.0) ){
+	// // 	if(region == 3){
+	// // 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(2, 80);
+	// // 	}else if(region == 2){
+	// // 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
+	// // 	}else if(region == 1){
+	// // 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 40);
+	// // 	}
+	// // 	region = getRegionFromCam();
+	// // }
+	// bool have_avoid = false;
+
+	// while(!have_avoid){
+	// 	if(obstacleDetected()){
+	// 		avoidObstacle();
+	// 		have_avoid = true;
+	// 	}else{
 	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
-	// 	}else if(region == 1){
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 40);
 	// 	}
-	// 	region = getRegionFromCam();
 	// }
-	bool have_avoid = false;
 
-	while(!have_avoid){
-		if(obstacleDetected()){
-			avoidObstacle();
-			have_avoid = true;
-		}else{
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
-		}
-	}
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 60);
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 70);
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 80);
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 90);
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 100);
 
 	RaspiRobot::getInstance()->stop();
 

@@ -221,44 +221,44 @@ int main(int argc, char **argv){
 	// 	region = getRegionFromCam();
 	// }
 //section 2
-	// bool have_avoid = false;
+	bool have_avoid = false;
 
-	// while(!have_avoid){
-	// 	if(obstacleDetected()){
-	// 		avoidObstacle();
-	// 		have_avoid = true;
-	// 	}else{
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
-	// 	}
-	// }	
-
-	// RaspiRobot::getInstance()->stop();
-
-//section 3
-	bool docked = false;
-	while(!docked){
-		//scan QR
-		region = getRegionFromCam();
-
-		//if QR not found
-		if(region == 0){
-			//randomwalk
+	while(!have_avoid){
+		if(obstacleDetected()){
+			avoidObstacle();
+			have_avoid = true;
 		}else{
-			if(region == 3){
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, HALF_SPEED_EN);
-			}else if(region == 2){
-				if(sideFromBarcode == RIGHT){
-					RaspiRobot::getInstance()->turnLeft(30);
-				}else if(sideFromBarcode == LEFT){
-					RaspiRobot::getInstance()->turnRight(30);
-				}
-			}else{
-
-			}
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, HALF_SPEED_EN);
 		}
-	}
+	}	
 
 	RaspiRobot::getInstance()->stop();
+
+//section 3
+	// bool docked = false;
+	// while(!docked){
+	// 	//scan QR
+	// 	region = getRegionFromCam();
+
+	// 	//if QR not found
+	// 	if(region == 0){
+	// 		//randomwalk
+	// 	}else{
+	// 		if(region == 3){
+	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, HALF_SPEED_EN);
+	// 		}else if(region == 2){
+	// 			if(sideFromBarcode == RIGHT){
+	// 				RaspiRobot::getInstance()->turnLeft(30);
+	// 			}else if(sideFromBarcode == LEFT){
+	// 				RaspiRobot::getInstance()->turnRight(30);
+	// 			}
+	// 		}else{
+
+	// 		}
+	// 	}
+	// }
+
+	// RaspiRobot::getInstance()->stop();
 
 	return 0;
 }

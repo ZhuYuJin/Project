@@ -230,12 +230,7 @@ int main(int argc, char **argv){
 	// 	}
 	// }
 
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 60);
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 70);
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 80);
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 90);
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 100);
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(40, 50);
 
 	RaspiRobot::getInstance()->stop();
 

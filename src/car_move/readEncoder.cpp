@@ -24,27 +24,29 @@ int main(int argc, char **argv){
 
 	ros::init(argc, argv, "encoder_reader");
 
-	RaspiRobot::init();
+	// RaspiRobot::init();
 
 	ros::NodeHandle n;
 
 	ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
 	ros::Subscriber vol_sub = n.subscribe("voltage_reader", 5000, volCallback);
+
+	ros::spin();
 	
-	while(!speed_read) {
-		RaspiRobot::getInstance()->forwardBySpeed(70);
-		ros::spinOnce();
-	}
+	// while(!speed_read) {
+	// 	RaspiRobot::getInstance()->forwardBySpeed(70);
+	// 	ros::spinOnce();
+	// }
 
-	speed_read = false; speed_count = 0;
-	while(!speed_read) {
-		RaspiRobot::getInstance()->forwardBySpeed(50);
-		ros::spinOnce();
-	}
+	// speed_read = false; speed_count = 0;
+	// while(!speed_read) {
+	// 	RaspiRobot::getInstance()->forwardBySpeed(50);
+	// 	ros::spinOnce();
+	// }
 
-	ROS_INFO("I heard: [%s]", "shutdown");
+	// ROS_INFO("I heard: [%s]", "shutdown");
 
-	RaspiRobot::getInstance()->stop();
+	// RaspiRobot::getInstance()->stop();
 
 	return 0;
 }

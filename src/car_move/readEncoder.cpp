@@ -11,7 +11,7 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("encoder: [%s]", msg->data.c_str());
 
 	speed_count++;
-	if(speed_count > 5){
+	if(speed_count > 3){
 		speed_read = true;
 	}
 }
@@ -32,7 +32,7 @@ int main(int argc, char **argv){
 	ros::Subscriber vol_sub = n.subscribe("voltage_reader", 1000, volCallback);
 	
 	while(!speed_read) {
-		RaspiRobot::getInstance()->forwardBySpeed(100);
+		RaspiRobot::getInstance()->forwardBySpeed(70);
 		ros::spinOnce();
 	}
 

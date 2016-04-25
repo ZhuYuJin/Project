@@ -170,7 +170,7 @@ bool obstacleDetected(){
 	//if distance is smaller than 15 and bigger than 0. 
 	//Barcode does not exist at the same time. 
 	//We have the conclusion that block exists.
-	if(distance <= 30.0 && distance >= 0 && !barcode_exist){
+	if(distance <= 15.0 && distance >= 0 && !barcode_exist){
 		is_block = true;
 	}
 

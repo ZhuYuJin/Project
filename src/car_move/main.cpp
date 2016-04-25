@@ -192,17 +192,17 @@ bool obstacleDetected(){
 }
 
 void avoidObstacle(){
-	bool is_block = obstacleDetected();
-	if(is_block){
+	// bool is_block = obstacleDetected();
+	// if(is_block){
 		RaspiRobot::getInstance()->turnLeft(45);
 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, HALF_SPEED_EN);
 		RaspiRobot::getInstance()->turnRight(45);
-		avoidObstacle();
+		// avoidObstacle();
 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, HALF_SPEED_EN);
 		RaspiRobot::getInstance()->turnRight(45);
 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, HALF_SPEED_EN);
 		RaspiRobot::getInstance()->turnLeft(45);
-	}
+	// }
 }
 
 int main(int argc, char **argv){

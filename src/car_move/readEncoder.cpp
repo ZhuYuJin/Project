@@ -45,7 +45,7 @@ int main(int argc, char **argv){
 
 	// ROS_INFO("I heard: [%s]", "shutdown");
 
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 70);
+	RaspiRobot::getInstance()->turnLeft(30);
 
 	RaspiRobot::getInstance()->stop();
 

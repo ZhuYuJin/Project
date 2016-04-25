@@ -32,7 +32,7 @@ int main(int argc, char **argv){
 	ros::Subscriber vol_sub = n.subscribe("voltage_reader", 1000, volCallback);
 	
 	while(!speed_read) {
-		RaspiRobot::getInstance()->forwardBySpeed(70);
+		RaspiRobot::getInstance()->forwardBySpeed(75);
 		ros::spinOnce();
 	}
 

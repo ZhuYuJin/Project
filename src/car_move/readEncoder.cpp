@@ -44,10 +44,10 @@ int main(int argc, char **argv){
 	// }
 
 	// ROS_INFO("I heard: [%s]", "shutdown");
-	RaspiRobot::getInstance()->forwardBySpeed(50);
+	RaspiRobot::getInstance()->rotate_clockwise(90);
 	delay(5000);
 
-	RaspiRobot::getInstance()->turnLeft(30);
+	RaspiRobot::getInstance()->turnLeft(90);
 
 	RaspiRobot::getInstance()->stop();
 

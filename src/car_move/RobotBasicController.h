@@ -209,7 +209,7 @@ void RaspiRobot::rotate_clockwise(float degree, int speed = HALF_SPEED, float wh
 	if(speed == HALF_SPEED){
 		setMotors_reverse(0,1,1,0,50,50);
 	}else{
-		setMotors_reverse(0,1,1,0,70,70);
+		setMotors_reverse(0,1,1,0,100,100);
 	}
 	if(sec>0)
 	{

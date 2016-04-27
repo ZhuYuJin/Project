@@ -79,8 +79,6 @@ bool RaspiRobot::init()
 	pinMode(RIGHT_OUT_PIN, OUTPUT);
 	softPwmCreate(LEFT_EN_PWM, 0, 100);
 	softPwmCreate(RIGHT_EN_PWM, 0, 100);
-	pinMode(LEFT_EN_PWM, OUTPUT);
-	pinMode(RIGHT_EN_PWM, OUTPUT);
 	pinMode(TRIGGER_PIN, OUTPUT);
 	pinMode(ECHO_PIN, INPUT);
 	return true;

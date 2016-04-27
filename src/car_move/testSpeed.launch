@@ -1,0 +1,5 @@
+<launch>
+   <node pkg="car_move" name="testSpeed" type="testSpeed" output="screen">
+   </node> 
+
+</launch>

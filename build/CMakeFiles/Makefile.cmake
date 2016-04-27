@@ -219,6 +219,7 @@ SET(CMAKE_DEPEND_INFO_FILES
   "car_move/CMakeFiles/std_msgs_generate_messages_cpp.dir/DependInfo.cmake"
   "car_move/CMakeFiles/std_msgs_generate_messages_lisp.dir/DependInfo.cmake"
   "car_move/CMakeFiles/std_msgs_generate_messages_py.dir/DependInfo.cmake"
+  "car_move/CMakeFiles/testSpeed.dir/DependInfo.cmake"
   "car_move/CMakeFiles/test_move.dir/DependInfo.cmake"
   "car_move/CMakeFiles/zbarTest.dir/DependInfo.cmake"
   "usb_cam/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/DependInfo.cmake"

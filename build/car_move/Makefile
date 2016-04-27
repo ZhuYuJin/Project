@@ -346,6 +346,20 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 # Convenience name for target.
+car_move/CMakeFiles/testSpeed.dir/rule:
+	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/testSpeed.dir/rule
+.PHONY : car_move/CMakeFiles/testSpeed.dir/rule
+
+# Convenience name for target.
+testSpeed: car_move/CMakeFiles/testSpeed.dir/rule
+.PHONY : testSpeed
+
+# fast build rule for target.
+testSpeed/fast:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/testSpeed.dir/build.make car_move/CMakeFiles/testSpeed.dir/build
+.PHONY : testSpeed/fast
+
+# Convenience name for target.
 car_move/CMakeFiles/test_move.dir/rule:
 	cd /home/zhuyujin/test/build && $(MAKE) -f CMakeFiles/Makefile2 car_move/CMakeFiles/test_move.dir/rule
 .PHONY : car_move/CMakeFiles/test_move.dir/rule
@@ -493,6 +507,30 @@ readVoltage.cpp.s:
 	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/readVoltage.dir/build.make car_move/CMakeFiles/readVoltage.dir/readVoltage.cpp.s
 .PHONY : readVoltage.cpp.s
 
+testSpeed.o: testSpeed.cpp.o
+.PHONY : testSpeed.o
+
+# target to build an object file
+testSpeed.cpp.o:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/testSpeed.dir/build.make car_move/CMakeFiles/testSpeed.dir/testSpeed.cpp.o
+.PHONY : testSpeed.cpp.o
+
+testSpeed.i: testSpeed.cpp.i
+.PHONY : testSpeed.i
+
+# target to preprocess a source file
+testSpeed.cpp.i:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/testSpeed.dir/build.make car_move/CMakeFiles/testSpeed.dir/testSpeed.cpp.i
+.PHONY : testSpeed.cpp.i
+
+testSpeed.s: testSpeed.cpp.s
+.PHONY : testSpeed.s
+
+# target to generate assembly for a file
+testSpeed.cpp.s:
+	cd /home/zhuyujin/test/build && $(MAKE) -f car_move/CMakeFiles/testSpeed.dir/build.make car_move/CMakeFiles/testSpeed.dir/testSpeed.cpp.s
+.PHONY : testSpeed.cpp.s
+
 test_move.o: test_move.cpp.o
 .PHONY : test_move.o
 
@@ -568,6 +606,7 @@ help:
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... test"
+	@echo "... testSpeed"
 	@echo "... test_move"
 	@echo "... zbarTest"
 	@echo "... basic_move.o"
@@ -585,6 +624,9 @@ help:
 	@echo "... readVoltage.o"
 	@echo "... readVoltage.i"
 	@echo "... readVoltage.s"
+	@echo "... testSpeed.o"
+	@echo "... testSpeed.i"
+	@echo "... testSpeed.s"
 	@echo "... test_move.o"
 	@echo "... test_move.i"
 	@echo "... test_move.s"

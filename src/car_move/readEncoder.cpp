@@ -24,11 +24,11 @@ int main(int argc, char **argv){
 
 	ros::init(argc, argv, "encoder_reader");
 
-	RaspiRobot::init();
+	// RaspiRobot::init();
 
 	ros::NodeHandle n;
 
-	// ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
+	ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
 	// ros::Subscriber vol_sub = n.subscribe("voltage_reader", 1000, volCallback);
 
 	// RaspiRobot::getInstance()->forwardBySpeed(50);
@@ -46,13 +46,13 @@ int main(int argc, char **argv){
 	// ROS_INFO("I heard: [%s]", "shutdown");
 
 	// RaspiRobot::getInstance()->stop();
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
+	// RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
 
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 100);
+	// RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 100);
 
-	RaspiRobot::getInstance()->stop();
+	// RaspiRobot::getInstance()->stop();
 
-	// ros::spin();
+	ros::spin();
 
 	return 0;
 }

@@ -436,6 +436,19 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named testSpeed
+
+# Build rule for target.
+testSpeed: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testSpeed
+.PHONY : testSpeed
+
+# fast build rule for target.
+testSpeed/fast:
+	$(MAKE) -f car_move/CMakeFiles/testSpeed.dir/build.make car_move/CMakeFiles/testSpeed.dir/build
+.PHONY : testSpeed/fast
+
+#=============================================================================
 # Target rules for targets named test_move
 
 # Build rule for target.
@@ -769,6 +782,7 @@ help:
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... testSpeed"
 	@echo "... test_move"
 	@echo "... zbarTest"
 	@echo "... geometry_msgs_generate_messages_cpp"

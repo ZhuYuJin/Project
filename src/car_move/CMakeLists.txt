@@ -127,6 +127,7 @@ add_executable(zbarTest zbarTest.cpp)
 add_executable(main main.cpp)
 add_executable(readVoltage readVoltage.cpp)
 add_executable(readEncoder readEncoder.cpp)
+add_executable(testSpeed testSpeed.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -146,6 +147,9 @@ target_link_libraries(main ${catkin_LIBRARIES}
 )
 target_link_libraries(readVoltage ${catkin_LIBRARIES})
 target_link_libraries(readEncoder ${catkin_LIBRARIES}
+	wiringPi
+)
+target_link_libraries(testSpeed ${catkin_LIBRARIES}
 	wiringPi
 )
 

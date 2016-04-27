@@ -15,7 +15,7 @@ int main(int argc, char **argv){
 
 	ros::NodeHandle n;
 
-	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
+	//RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
 
 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 100);
 

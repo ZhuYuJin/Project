@@ -11,7 +11,7 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("encoder: [%s]", msg->data.c_str());
 
 	speed_count++;
-	if(speed_count > 3){
+	if(speed_count > 5){
 		speed_read = true;
 	}
 }
@@ -28,47 +28,29 @@ int main(int argc, char **argv){
 
 	ros::NodeHandle n;
 
-	ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
-	ros::Subscriber vol_sub = n.subscribe("voltage_reader", 1000, volCallback);
+	// ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
+	// ros::Subscriber vol_sub = n.subscribe("voltage_reader", 1000, volCallback);
 
-	RaspiRobot::getInstance()->forwardBySpeed(100);
-	while(!speed_read) {
-		ros::spinOnce();
-	}
+	// RaspiRobot::getInstance()->forwardBySpeed(50);
+	// while(!speed_read) {
+	// 	ros::spinOnce();
+	// }
 
-	RaspiRobot::getInstance()->forwardBySpeed(50);
-	speed_read = false; 
-	speed_count = 0;
-	while(!speed_read) {
-		ros::spinOnce();
-	}
+	// RaspiRobot::getInstance()->forwardBySpeed(100);
+	// speed_read = false; 
+	// speed_count = 0;
+	// while(!speed_read) {
+	// 	ros::spinOnce();
+	// }
 
-	RaspiRobot::getInstance()->reverseBySpeed(100);
-	speed_read = false; 
-	speed_count = 0;
-	while(!speed_read) {
-		ros::spinOnce();
-	}
-
-	RaspiRobot::getInstance()->reverseBySpeed(50);
-	speed_read = false; 
-	speed_count = 0;
-	while(!speed_read) {
-		ros::spinOnce();
-	}
-
-	ROS_INFO("I heard: [%s]", "shutdown");
-
-	RaspiRobot::getInstance()->stop();
-	// RaspiRobot::getInstance()->rotate_clockwise(180, FULL_SPEED);
-	// delay(5000);
-
-	// RaspiRobot::getInstance()->rotate_clockwise1(180, FULL_SPEED);
-	// delay(5000);
-
-	// RaspiRobot::getInstance()->turnLeft(90);
+	// ROS_INFO("I heard: [%s]", "shutdown");
 
 	// RaspiRobot::getInstance()->stop();
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
+
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 100);
+
+	RaspiRobot::getInstance()->stop();
 
 	// ros::spin();
 

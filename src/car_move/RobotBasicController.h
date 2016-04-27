@@ -77,8 +77,8 @@ bool RaspiRobot::init()
 	pinMode(LEFT_OUT_PIN, OUTPUT);
 	pinMode(RIGHT_IN_PIN, OUTPUT);
 	pinMode(RIGHT_OUT_PIN, OUTPUT);
-	// softPwmCreate(LEFT_EN_PWM, 0, 100);
-	// softPwmCreate(RIGHT_EN_PWM, 0, 100);
+	softPwmCreate(LEFT_EN_PWM, 0, 100);
+	softPwmCreate(RIGHT_EN_PWM, 0, 100);
 	pinMode(LEFT_EN_PWM, OUTPUT);
 	pinMode(RIGHT_EN_PWM, OUTPUT);
 	pinMode(TRIGGER_PIN, OUTPUT);
@@ -92,26 +92,26 @@ void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rig
 	digitalWrite(LEFT_OUT_PIN, leftOut);
 	digitalWrite(RIGHT_IN_PIN, rightIn);
 	digitalWrite(RIGHT_OUT_PIN, rightOut);
-	// softPwmWrite(LEFT_EN_PWM, leftEn);
-	// softPwmWrite(RIGHT_EN_PWM, rightEn);
-	if(LEFT_EN_PWM == 50){
-		for(int i = 0; i < last_time; i++){
-			for(int i = 0; i < 20; i++){
-				digitalWrite(LEFT_EN_PWM, 1);
-				digitalWrite(RIGHT_EN_PWM, 1);
-				delay(45);
-				digitalWrite(LEFT_EN_PWM, 0);
-				digitalWrite(RIGHT_EN_PWM, 0);
-				delay(5);
-			}
-		}
-	}else if(LEFT_EN_PWM == 100){
-		digitalWrite(LEFT_EN_PWM, 1);
-		digitalWrite(RIGHT_EN_PWM, 1);
-	}else if(LEFT_EN_PWM == 0){
-		digitalWrite(LEFT_EN_PWM, 0);
-		digitalWrite(RIGHT_EN_PWM, 0);
-	}
+	softPwmWrite(LEFT_EN_PWM, leftEn);
+	softPwmWrite(RIGHT_EN_PWM, rightEn);
+	// if(LEFT_EN_PWM == 50){
+	// 	for(int i = 0; i < last_time; i++){
+	// 		for(int i = 0; i < 20; i++){
+	// 			digitalWrite(LEFT_EN_PWM, 1);
+	// 			digitalWrite(RIGHT_EN_PWM, 1);
+	// 			delay(45);
+	// 			digitalWrite(LEFT_EN_PWM, 0);
+	// 			digitalWrite(RIGHT_EN_PWM, 0);
+	// 			delay(5);
+	// 		}
+	// 	}
+	// }else if(LEFT_EN_PWM == 100){
+	// 	digitalWrite(LEFT_EN_PWM, 1);
+	// 	digitalWrite(RIGHT_EN_PWM, 1);
+	// }else if(LEFT_EN_PWM == 0){
+	// 	digitalWrite(LEFT_EN_PWM, 0);
+	// 	digitalWrite(RIGHT_EN_PWM, 0);
+	// }
 }
 
 void RaspiRobot::stop()

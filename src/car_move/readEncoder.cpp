@@ -11,7 +11,7 @@ void moveCallback(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("encoder: [%s]", msg->data.c_str());
 
 	speed_count++;
-	if(speed_count > 5){
+	if(speed_count > 3){
 		speed_read = true;
 	}
 }
@@ -43,7 +43,23 @@ int main(int argc, char **argv){
 		ros::spinOnce();
 	}
 
+	RaspiRobot::getInstance()->reverseBySpeed(100);
+	speed_read = false; 
+	speed_count = 0;
+	while(!speed_read) {
+		ros::spinOnce();
+	}
+
+	RaspiRobot::getInstance()->reverseBySpeed(50);
+	speed_read = false; 
+	speed_count = 0;
+	while(!speed_read) {
+		ros::spinOnce();
+	}
+
 	ROS_INFO("I heard: [%s]", "shutdown");
+
+	RaspiRobot::getInstance()->stop();
 	// RaspiRobot::getInstance()->rotate_clockwise(180, FULL_SPEED);
 	// delay(5000);
 

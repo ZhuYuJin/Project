@@ -113,7 +113,7 @@ void RaspiRobot::setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar ri
 				delay(10);
 				digitalWrite(LEFT_EN_PWM, 1);
 				digitalWrite(RIGHT_EN_PWM, 1);
-				delay(20)
+				delay(20);
 				digitalWrite(LEFT_EN_PWM, 0);
 				digitalWrite(RIGHT_EN_PWM, 0);
 				delay(20);

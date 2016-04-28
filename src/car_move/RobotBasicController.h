@@ -110,15 +110,23 @@ void RaspiRobot::setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar ri
 			for(int i = 0; i < 20; i++){
 				digitalWrite(LEFT_EN_PWM, 1);
 				digitalWrite(RIGHT_EN_PWM, 1);
-				delay(35);
+				delay(25);
 				digitalWrite(LEFT_EN_PWM, 0);
 				digitalWrite(RIGHT_EN_PWM, 0);
-				delay(15);
+				delay(25);
 			}
 		}
 	}else if(leftEn == 100){
-		digitalWrite(LEFT_EN_PWM, 1);
-		digitalWrite(RIGHT_EN_PWM, 1);
+		for(int i = 0; i < last_time; i++){
+			for(int i = 0; i < 20; i++){
+				digitalWrite(LEFT_EN_PWM, 1);
+				digitalWrite(RIGHT_EN_PWM, 1);
+				delay(45);
+				digitalWrite(LEFT_EN_PWM, 0);
+				digitalWrite(RIGHT_EN_PWM, 0);
+				delay(5);
+			}
+		}
 	}else if(leftEn == 0){
 		digitalWrite(LEFT_EN_PWM, 0);
 		digitalWrite(RIGHT_EN_PWM, 0);

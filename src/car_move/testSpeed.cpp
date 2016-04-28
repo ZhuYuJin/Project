@@ -17,7 +17,7 @@ int main(int argc, char **argv){
 
 	//RaspiRobot::getInstance()->forwardByTimeAndSpeed(20, 50);
 
-	// RaspiRobot::getInstance()->forwardByTimeAndSpeed1(20);
+	RaspiRobot::getInstance()->forwardByTimeAndSpeed1(20);
 
 	RaspiRobot::getInstance()->forwardByTimeAndSpeed1(20, 100);
 

@@ -128,11 +128,6 @@ void RaspiRobot::setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar ri
 void RaspiRobot::forwardByTimeAndSpeed1(float sec, int speed = 50)
 {
 	setMotors1(0,1,0,1,speed,speed, sec);
-	if(sec>0)
-	{
-		delay((int)(sec*1000));
-		stop();
-	}
 }
 
 void RaspiRobot::stop()

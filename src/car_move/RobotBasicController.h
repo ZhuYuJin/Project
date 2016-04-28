@@ -36,6 +36,7 @@ class RaspiRobot
 		int direction;
 		RaspiRobot();
 		void setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time);
+		void setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time);
 		float getDistance(float minDistance,float maxDistance,int count,int maxLoop);
 	public:
 		static bool init();
@@ -43,6 +44,7 @@ class RaspiRobot
 		void stop();
 		void forwardBySpeed(int speed);
 		void forwardByTimeAndSpeed(float sec, int speed);
+		void forwardByTimeAndSpeed1(float sec, int speed);
 		void reverseBySpeed(int speed);
 		void reverseByTimeAndSpeed(float sec, int speed);
 		void turnLeft(float degree, float speed, float speed_t, float wheelbase);
@@ -92,24 +94,45 @@ void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rig
 	digitalWrite(RIGHT_OUT_PIN, rightOut);
 	softPwmWrite(LEFT_EN_PWM, leftEn);
 	softPwmWrite(RIGHT_EN_PWM, rightEn);
-	// if(LEFT_EN_PWM == 50){
-	// 	for(int i = 0; i < last_time; i++){
-	// 		for(int i = 0; i < 20; i++){
-	// 			digitalWrite(LEFT_EN_PWM, 1);
-	// 			digitalWrite(RIGHT_EN_PWM, 1);
-	// 			delay(45);
-	// 			digitalWrite(LEFT_EN_PWM, 0);
-	// 			digitalWrite(RIGHT_EN_PWM, 0);
-	// 			delay(5);
-	// 		}
-	// 	}
-	// }else if(LEFT_EN_PWM == 100){
-	// 	digitalWrite(LEFT_EN_PWM, 1);
-	// 	digitalWrite(RIGHT_EN_PWM, 1);
-	// }else if(LEFT_EN_PWM == 0){
-	// 	digitalWrite(LEFT_EN_PWM, 0);
-	// 	digitalWrite(RIGHT_EN_PWM, 0);
-	// }
+}
+
+void RaspiRobot::setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time)
+{
+	pinMode(LEFT_EN_PWM, OUTPUT);
+	pinMode(RIGHT_EN_PWM, OUTPUT);
+
+	digitalWrite(LEFT_IN_PIN, leftIn);
+	digitalWrite(LEFT_OUT_PIN, leftOut);
+	digitalWrite(RIGHT_IN_PIN, rightIn);
+	digitalWrite(RIGHT_OUT_PIN, rightOut);
+	if(leftEn == 50){
+		for(int i = 0; i < last_time; i++){
+			for(int i = 0; i < 20; i++){
+				digitalWrite(LEFT_EN_PWM, 1);
+				digitalWrite(RIGHT_EN_PWM, 1);
+				delay(35);
+				digitalWrite(LEFT_EN_PWM, 0);
+				digitalWrite(RIGHT_EN_PWM, 0);
+				delay(15);
+			}
+		}
+	}else if(leftEn == 100){
+		digitalWrite(LEFT_EN_PWM, 1);
+		digitalWrite(RIGHT_EN_PWM, 1);
+	}else if(leftEn == 0){
+		digitalWrite(LEFT_EN_PWM, 0);
+		digitalWrite(RIGHT_EN_PWM, 0);
+	}
+}
+
+void RaspiRobot::forwardByTimeAndSpeed1(float sec, int speed = 50)
+{
+	setMotors1(0,1,0,1,speed,speed, sec);
+	if(sec>0)
+	{
+		delay((int)(sec*1000));
+		stop();
+	}
 }
 
 void RaspiRobot::stop()

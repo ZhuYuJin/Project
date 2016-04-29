@@ -48,6 +48,7 @@ class RaspiRobot
 		void turnLeft(float degree, float speed, float speed_t, float wheelbase);
 		void turnRight(float degree, float speed, float speed_t, float wheelbase);
 		void rotate_clockwise(float degree, int speed, float wheelbase);
+		void rotate_anticlockwise(float degree, int speed, float wheelbase);
 		float getDistance();
 		unsigned int getVoltage();
 };
@@ -241,9 +242,23 @@ void RaspiRobot::rotate_clockwise(float degree, int speed = FULL_SPEED, float wh
 {
 	float d = (degree / 360.0) * wheelbase * M_PI;
 	float sec = d / speed;
-	sec *= 2;
+	sec *= 2.5;
 	// setMotors(0,1,1,0,(int)speed,(int)speed);
 	setMotors(0,1,1,0,100,100);
+	if(sec>0)
+	{
+		delay((int)(sec*1000));
+		stop();
+	}
+}
+
+void RaspiRobot::rotate_anticlockwise(float degree, int speed = FULL_SPEED, float wheelbase = 20.0)
+{
+	float d = (degree / 360.0) * wheelbase * M_PI;
+	float sec = d / speed;
+	sec *= 2.5;
+	// setMotors(0,1,1,0,(int)speed,(int)speed);
+	setMotors(1,0,0,1,100,100);
 	if(sec>0)
 	{
 		delay((int)(sec*1000));

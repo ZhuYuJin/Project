@@ -21,10 +21,7 @@
 #define ECHO_PIN		22
 
 //speed of the car: 50-34cm/s 70-46cm/s
-static int HALF_SPEED_EN = 50;
-static int HALF_SPEED = 34;
-static int FULL_SPEED_EN = 100;
-static int FULL_SPEED = 46;
+static int FULL_SPEED = 90;
 static int WHEEL_BASE = 20;
 
 using namespace std;
@@ -92,57 +89,62 @@ void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rig
 	digitalWrite(LEFT_OUT_PIN, leftOut);
 	digitalWrite(RIGHT_IN_PIN, rightIn);
 	digitalWrite(RIGHT_OUT_PIN, rightOut);
-	softPwmWrite(LEFT_EN_PWM, leftEn-35);
+	if(LEFT_IN_PIN == 0 && LEFT_OUT_PIN == 1)
+		softPwmWrite(LEFT_EN_PWM, leftEn-35);
+	else if(LEFT_IN_PIN == 1 && LEFT_OUT_PIN == 0)
+		softPwmWrite(LEFT_EN_PWM, leftEn-5);
+	else
+		softPwmWrite(LEFT_EN_PWM, leftEn);
 	softPwmWrite(RIGHT_EN_PWM, rightEn);
 }
 
-void RaspiRobot::setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time)
-{
-	pinMode(LEFT_EN_PWM, OUTPUT);
-	pinMode(RIGHT_EN_PWM, OUTPUT);
+// void RaspiRobot::setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time)
+// {
+// 	pinMode(LEFT_EN_PWM, OUTPUT);
+// 	pinMode(RIGHT_EN_PWM, OUTPUT);
 
-	digitalWrite(LEFT_IN_PIN, leftIn);
-	digitalWrite(LEFT_OUT_PIN, leftOut);
-	digitalWrite(RIGHT_IN_PIN, rightIn);
-	digitalWrite(RIGHT_OUT_PIN, rightOut);
-	if(leftEn == 50){
-		for(int i = 0; i < last_time; i++){
-			for(int i = 0; i < 20; i++){
-				digitalWrite(LEFT_EN_PWM, 0);
-				digitalWrite(RIGHT_EN_PWM, 1);
-				delay(10);
-				digitalWrite(LEFT_EN_PWM, 1);
-				digitalWrite(RIGHT_EN_PWM, 1);
-				delay(20);
-				digitalWrite(LEFT_EN_PWM, 0);
-				digitalWrite(RIGHT_EN_PWM, 0);
-				delay(20);
-			}
-		}
-	}else if(leftEn == 100){
-		for(int i = 0; i < last_time; i++){
-			for(int i = 0; i < 20; i++){
-				digitalWrite(LEFT_EN_PWM, 0);
-				digitalWrite(RIGHT_EN_PWM, 1);
-				delay(10);
-				digitalWrite(LEFT_EN_PWM, 1);
-				digitalWrite(RIGHT_EN_PWM, 1);
-				delay(35);
-				digitalWrite(LEFT_EN_PWM, 0);
-				digitalWrite(RIGHT_EN_PWM, 0);
-				delay(5);
-			}
-		}
-	}else if(leftEn == 0){
-		digitalWrite(LEFT_EN_PWM, 0);
-		digitalWrite(RIGHT_EN_PWM, 0);
-	}
-}
+// 	digitalWrite(LEFT_IN_PIN, leftIn);
+// 	digitalWrite(LEFT_OUT_PIN, leftOut);
+// 	digitalWrite(RIGHT_IN_PIN, rightIn);
+// 	digitalWrite(RIGHT_OUT_PIN, rightOut);
+// 	if(leftEn == 50){
+// 		for(int i = 0; i < last_time; i++){
+// 			for(int i = 0; i < 20; i++){
+// 				digitalWrite(LEFT_EN_PWM, 0);
+// 				digitalWrite(RIGHT_EN_PWM, 1);
+// 				delay(10);
+// 				digitalWrite(LEFT_EN_PWM, 1);
+// 				digitalWrite(RIGHT_EN_PWM, 1);
+// 				delay(20);
+// 				digitalWrite(LEFT_EN_PWM, 0);
+// 				digitalWrite(RIGHT_EN_PWM, 0);
+// 				delay(20);
+// 			}
+// 		}
+// 	}else if(leftEn == 100){
+// 		for(int i = 0; i < last_time; i++){
+// 			for(int i = 0; i < 20; i++){
+// 				digitalWrite(LEFT_EN_PWM, 0);
+// 				digitalWrite(RIGHT_EN_PWM, 1);
+// 				delay(10);
+// 				digitalWrite(LEFT_EN_PWM, 1);
+// 				digitalWrite(RIGHT_EN_PWM, 1);
+// 				delay(35);
+// 				digitalWrite(LEFT_EN_PWM, 0);
+// 				digitalWrite(RIGHT_EN_PWM, 0);
+// 				delay(5);
+// 			}
+// 		}
+// 	}else if(leftEn == 0){
+// 		digitalWrite(LEFT_EN_PWM, 0);
+// 		digitalWrite(RIGHT_EN_PWM, 0);
+// 	}
+// }
 
-void RaspiRobot::forwardByTimeAndSpeed1(float sec, int speed = 50)
-{
-	setMotors1(0,1,0,1,speed,speed, sec);
-}
+// void RaspiRobot::forwardByTimeAndSpeed1(float sec, int speed = 50)
+// {
+// 	setMotors1(0,1,0,1,speed,speed, sec);
+// }
 
 void RaspiRobot::stop()
 {
@@ -180,7 +182,7 @@ void RaspiRobot::reverseByTimeAndSpeed(float sec, int speed = 50)
 }
 
 //degree = 30, speed = 40, speed_t = 20, wheelbase = 15.2
-void RaspiRobot::turnLeft(float degree, float speed = HALF_SPEED, float speed_t = FULL_SPEED-HALF_SPEED, float wheelbase = WHEEL_BASE)
+void RaspiRobot::turnLeft(float degree, float speed = 0, float speed_t = FULL_SPEED, float wheelbase = WHEEL_BASE)
 {
 	float r = (speed * wheelbase) / speed_t;//distance of the left wheel from the circle center
 	float d_r = (((wheelbase + r) * degree) / 180.0) * M_PI;
@@ -188,7 +190,8 @@ void RaspiRobot::turnLeft(float degree, float speed = HALF_SPEED, float speed_t 
 	float t1 = d_r / (speed + speed_t);
 	float t2 = d_l / speed;
 	float sec = (t1 + t2) / 2;
-	setMotors(0,1,0,1,(int)speed,(int)(speed+speed_t));
+	// setMotors(0,1,0,1,(int)speed,(int)(speed+speed_t));
+	setMotors(0,1,0,1,0,100);
 	if(sec>0)
 	{
 		delay((int)(sec*1000));
@@ -197,7 +200,7 @@ void RaspiRobot::turnLeft(float degree, float speed = HALF_SPEED, float speed_t 
 }
 
 //degree = 30, speed = 40, speed_t = 20, wheelbase = 15.2
-void RaspiRobot::turnRight(float degree, float speed = HALF_SPEED, float speed_t = FULL_SPEED-HALF_SPEED, float wheelbase = WHEEL_BASE)
+void RaspiRobot::turnRight(float degree, float speed = 0, float speed_t = FULL_SPEED, float wheelbase = WHEEL_BASE)
 {
 	float r = (speed * wheelbase) / speed_t;//distance of the right wheel from the circle center
 	float d_l = (((wheelbase + r) * degree) / 180.0) * M_PI;
@@ -205,7 +208,7 @@ void RaspiRobot::turnRight(float degree, float speed = HALF_SPEED, float speed_t
 	float t1 = d_l / (speed + speed_t);
 	float t2 = d_r / speed;
 	float sec = (t1 + t2) / 2;
-	setMotors(0,1,0,1,(int)(speed+speed_t),(int)speed);
+	setMotors(0,1,0,1,100,0);
 	if(sec>0)
 	{
 		delay((int)(sec*1000));
@@ -213,16 +216,12 @@ void RaspiRobot::turnRight(float degree, float speed = HALF_SPEED, float speed_t
 	}
 }
 
-void RaspiRobot::rotate_clockwise(float degree, int speed = HALF_SPEED, float wheelbase = 20.0)
+void RaspiRobot::rotate_clockwise(float degree, int speed = FULL_SPEED, float wheelbase = 20.0)
 {
 	float d = (degree / 360.0) * wheelbase * M_PI;
 	float sec = d / speed;
 	// setMotors(0,1,1,0,(int)speed,(int)speed);
-	if(speed == HALF_SPEED){
-		setMotors(0,1,1,0,50,50);
-	}else{
-		setMotors(0,1,1,0,100,100);
-	}
+	setMotors(0,1,1,0,100,100);
 	if(sec>0)
 	{
 		delay((int)(sec*1000));

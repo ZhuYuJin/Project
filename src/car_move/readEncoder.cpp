@@ -36,12 +36,21 @@ int main(int argc, char **argv){
 	// 	ros::spinOnce();
 	// }
 
-	RaspiRobot::getInstance()->forwardBySpeed(100);
-	speed_read = false; 
-	speed_count = 0;
-	while(!speed_read) {
-		ros::spinOnce();
-	}
+	// RaspiRobot::getInstance()->forwardBySpeed(100);
+	// speed_read = false; 
+	// speed_count = 0;
+	// while(!speed_read) {
+	// 	ros::spinOnce();
+	// }
+	RaspiRobot::getInstance()->turnLeft(90);
+	delay(2000);
+	RaspiRobot::getInstance()->turnLeft(45);
+	delay(2000);
+	RaspiRobot::getInstance()->turnRight(90);
+	delay(2000);
+	RaspiRobot::getInstance()->turnRight(45);
+	delay(2000);
+	RaspiRobot::getInstance()->rotate_clockwise(90);
 
 	ROS_INFO("I heard: [%s]", "shutdown");
 

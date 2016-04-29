@@ -183,7 +183,7 @@ bool obstacleDetected(){
 	//if distance is smaller than 15 and bigger than 0. 
 	//Barcode does not exist at the same time. 
 	//We have the conclusion that block exists.
-	if(distance <= 15.0 && distance >= 0 && !barcode_exist){
+	if(distance <= 30.0 && distance >= 0 && !barcode_exist){
 		is_block = true;
 	}
 
@@ -194,14 +194,14 @@ bool obstacleDetected(){
 void avoidObstacle(){
 	// bool is_block = obstacleDetected();
 	// if(is_block){
-		RaspiRobot::getInstance()->turnLeft(45);
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, FULL_SPEED_EN);
-		RaspiRobot::getInstance()->turnRight(45);
+		RaspiRobot::getInstance()->rotate_anticlockwise(45);
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+		RaspiRobot::getInstance()->rotate_clockwise(45);
 		// avoidObstacle();
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-		RaspiRobot::getInstance()->turnRight(45);
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, FULL_SPEED_EN);
-		RaspiRobot::getInstance()->turnLeft(45);
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+		RaspiRobot::getInstance()->rotate_clockwise(45);
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+		RaspiRobot::getInstance()->rotate_anticlockwise(45);
 	// }
 }
 
@@ -241,7 +241,7 @@ int main(int argc, char **argv){
 			avoidObstacle();
 			have_avoid = true;
 		}else{
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, FULL_SPEED_EN);
 		}
 	}	
 

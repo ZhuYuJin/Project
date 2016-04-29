@@ -35,7 +35,7 @@ class RaspiRobot
 		static RaspiRobot *instance;
 		int direction;
 		RaspiRobot();
-		void setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time);
+		void setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn);
 		void setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time);
 		float getDistance(float minDistance,float maxDistance,int count,int maxLoop);
 	public:
@@ -86,7 +86,7 @@ bool RaspiRobot::init()
 	return true;
 }
 
-void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time)
+void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn)
 {
 	digitalWrite(LEFT_IN_PIN, leftIn);
 	digitalWrite(LEFT_OUT_PIN, leftOut);
@@ -146,17 +146,17 @@ void RaspiRobot::forwardByTimeAndSpeed1(float sec, int speed = 50)
 
 void RaspiRobot::stop()
 {
-	setMotors(0,0,0,0,0,0,0);
+	setMotors(0,0,0,0,0,0);
 }
 
 void RaspiRobot::forwardBySpeed(int speed)
 {
-	setMotors(0,1,0,1,speed,speed,0);
+	setMotors(1,0,1,0,speed,speed);
 }
 
 void RaspiRobot::forwardByTimeAndSpeed(float sec, int speed = 50)
 {
-	setMotors(0,1,0,1,speed,speed, sec);
+	setMotors(0,1,0,1,speed,speed);
 	if(sec>0)
 	{
 		delay((int)(sec*1000));
@@ -166,12 +166,12 @@ void RaspiRobot::forwardByTimeAndSpeed(float sec, int speed = 50)
 
 void RaspiRobot::reverseBySpeed(int speed)
 {
-	setMotors(1,0,1,0,speed,speed,0);
+	setMotors(1,0,1,0,speed,speed);
 }
 
 void RaspiRobot::reverseByTimeAndSpeed(float sec, int speed = 50)
 {
-	setMotors(1,0,1,0,speed,speed,sec);
+	setMotors(1,0,1,0,speed,speed);
 	if(sec>0)
 	{
 		delay((int)(sec*1000));
@@ -188,7 +188,7 @@ void RaspiRobot::turnLeft(float degree, float speed = HALF_SPEED, float speed_t 
 	float t1 = d_r / (speed + speed_t);
 	float t2 = d_l / speed;
 	float sec = (t1 + t2) / 2;
-	setMotors(0,1,0,1,(int)speed,(int)(speed+speed_t),sec);
+	setMotors(0,1,0,1,(int)speed,(int)(speed+speed_t));
 	if(sec>0)
 	{
 		delay((int)(sec*1000));
@@ -205,7 +205,7 @@ void RaspiRobot::turnRight(float degree, float speed = HALF_SPEED, float speed_t
 	float t1 = d_l / (speed + speed_t);
 	float t2 = d_r / speed;
 	float sec = (t1 + t2) / 2;
-	setMotors(0,1,0,1,(int)(speed+speed_t),(int)speed,sec);
+	setMotors(0,1,0,1,(int)(speed+speed_t),(int)speed);
 	if(sec>0)
 	{
 		delay((int)(sec*1000));
@@ -219,9 +219,9 @@ void RaspiRobot::rotate_clockwise(float degree, int speed = HALF_SPEED, float wh
 	float sec = d / speed;
 	// setMotors(0,1,1,0,(int)speed,(int)speed);
 	if(speed == HALF_SPEED){
-		setMotors(0,1,1,0,50,50,0);
+		setMotors(0,1,1,0,50,50);
 	}else{
-		setMotors(0,1,1,0,100,100,0);
+		setMotors(0,1,1,0,100,100);
 	}
 	if(sec>0)
 	{

@@ -151,7 +151,7 @@ void RaspiRobot::stop()
 
 void RaspiRobot::forwardBySpeed(int speed)
 {
-	setMotors(1,0,1,0,speed,speed);
+	setMotors(0,1,0,1,speed,speed);
 }
 
 void RaspiRobot::forwardByTimeAndSpeed(float sec, int speed = 50)

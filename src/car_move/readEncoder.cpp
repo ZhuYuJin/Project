@@ -31,10 +31,10 @@ int main(int argc, char **argv){
 	ros::Subscriber sub = n.subscribe("encoder_reader", 1000, moveCallback);
 	ros::Subscriber vol_sub = n.subscribe("voltage_reader", 1000, volCallback);
 
-	RaspiRobot::getInstance()->forwardBySpeed(50);
-	while(!speed_read) {
-		ros::spinOnce();
-	}
+	// RaspiRobot::getInstance()->forwardBySpeed(50);
+	// while(!speed_read) {
+	// 	ros::spinOnce();
+	// }
 
 	RaspiRobot::getInstance()->forwardBySpeed(100);
 	speed_read = false; 

@@ -195,12 +195,12 @@ void avoidObstacle(){
 	// bool is_block = obstacleDetected();
 	// if(is_block){
 		RaspiRobot::getInstance()->rotate_anticlockwise(45);
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, FULL_SPEED_EN);
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.3, FULL_SPEED_EN);
 		RaspiRobot::getInstance()->rotate_clockwise(45);
 		// avoidObstacle();
 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		RaspiRobot::getInstance()->rotate_clockwise(45);
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, FULL_SPEED_EN);
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.3, FULL_SPEED_EN);
 		RaspiRobot::getInstance()->rotate_anticlockwise(45);
 	// }
 }

@@ -22,6 +22,7 @@
 
 //speed of the car: 50-34cm/s 70-46cm/s
 static int FULL_SPEED = 90;
+static int FULL_SPEED_EN = 100;
 static int WHEEL_BASE = 20;
 
 using namespace std;

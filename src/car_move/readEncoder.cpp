@@ -24,7 +24,7 @@ int main(int argc, char **argv){
 
 	ros::init(argc, argv, "encoder_reader");
 
-	// RaspiRobot::init();
+	RaspiRobot::init();
 
 	ros::NodeHandle n;
 

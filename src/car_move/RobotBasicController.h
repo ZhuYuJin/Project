@@ -228,7 +228,7 @@ void RaspiRobot::turnRight(float degree, float speed = 0, float speed_t = FULL_S
 
 	float r = wheelbase;
 	float sec = M_PI * r * degree / 180.0 / speed_t;
-	sec *= 1.5;
+	sec *= 2;
 	setMotors(0,1,0,1,100,0);
 	if(sec>0)
 	{
@@ -239,8 +239,9 @@ void RaspiRobot::turnRight(float degree, float speed = 0, float speed_t = FULL_S
 
 void RaspiRobot::rotate_clockwise(float degree, int speed = FULL_SPEED, float wheelbase = 20.0)
 {
-	float d = (degree / 720.0) * wheelbase * M_PI;
+	float d = (degree / 360.0) * wheelbase * M_PI;
 	float sec = d / speed;
+	sec *= 2;
 	// setMotors(0,1,1,0,(int)speed,(int)speed);
 	setMotors(0,1,1,0,100,100);
 	if(sec>0)

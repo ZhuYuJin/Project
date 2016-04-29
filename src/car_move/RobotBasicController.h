@@ -185,13 +185,22 @@ void RaspiRobot::reverseByTimeAndSpeed(float sec, int speed = 50)
 //degree = 30, speed = 40, speed_t = 20, wheelbase = 15.2
 void RaspiRobot::turnLeft(float degree, float speed = 0, float speed_t = FULL_SPEED, float wheelbase = WHEEL_BASE)
 {
-	float r = (speed * wheelbase) / speed_t;//distance of the left wheel from the circle center
-	float d_r = (((wheelbase + r) * degree) / 180.0) * M_PI;
-	float d_l = ((r * degree) / 180.0) * M_PI;
-	float t1 = d_r / (speed + speed_t);
-	float t2 = d_l / speed;
-	float sec = (t1 + t2) / 2;
-	// setMotors(0,1,0,1,(int)speed,(int)(speed+speed_t));
+	// float r = (speed * wheelbase) / speed_t;//distance of the left wheel from the circle center
+	// float d_r = (((wheelbase + r) * degree) / 180.0) * M_PI;
+	// float d_l = ((r * degree) / 180.0) * M_PI;
+	// float t1 = d_r / (speed + speed_t);
+	// float t2 = d_l / speed;
+	// float sec = (t1 + t2) / 2;
+	// // setMotors(0,1,0,1,(int)speed,(int)(speed+speed_t));
+	// setMotors(0,1,0,1,0,100);
+	// if(sec>0)
+	// {
+	// 	delay((int)(sec*1000));
+	// 	stop();
+	// }
+
+	float r = wheelbase;
+	float sec = M_PI * r * degree / 180.0 / speed_t;
 	setMotors(0,1,0,1,0,100);
 	if(sec>0)
 	{
@@ -203,12 +212,21 @@ void RaspiRobot::turnLeft(float degree, float speed = 0, float speed_t = FULL_SP
 //degree = 30, speed = 40, speed_t = 20, wheelbase = 15.2
 void RaspiRobot::turnRight(float degree, float speed = 0, float speed_t = FULL_SPEED, float wheelbase = WHEEL_BASE)
 {
-	float r = (speed * wheelbase) / speed_t;//distance of the right wheel from the circle center
-	float d_l = (((wheelbase + r) * degree) / 180.0) * M_PI;
-	float d_r = ((r * degree) / 180.0) * M_PI;
-	float t1 = d_l / (speed + speed_t);
-	float t2 = d_r / speed;
-	float sec = (t1 + t2) / 2;
+	// float r = (speed * wheelbase) / speed_t;//distance of the right wheel from the circle center
+	// float d_l = (((wheelbase + r) * degree) / 180.0) * M_PI;
+	// float d_r = ((r * degree) / 180.0) * M_PI;
+	// float t1 = d_l / (speed + speed_t);
+	// float t2 = d_r / speed;
+	// float sec = (t1 + t2) / 2;
+	// setMotors(0,1,0,1,100,0);
+	// if(sec>0)
+	// {
+	// 	delay((int)(sec*1000));
+	// 	stop();
+	// }
+
+	float r = wheelbase;
+	float sec = M_PI * r * degree / 180.0 / speed_t;
 	setMotors(0,1,0,1,100,0);
 	if(sec>0)
 	{
@@ -219,7 +237,7 @@ void RaspiRobot::turnRight(float degree, float speed = 0, float speed_t = FULL_S
 
 void RaspiRobot::rotate_clockwise(float degree, int speed = FULL_SPEED, float wheelbase = 20.0)
 {
-	float d = (degree / 360.0) * wheelbase * M_PI;
+	float d = (degree / 720.0) * wheelbase * M_PI;
 	float sec = d / speed;
 	// setMotors(0,1,1,0,(int)speed,(int)speed);
 	setMotors(0,1,1,0,100,100);

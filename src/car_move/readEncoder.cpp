@@ -42,12 +42,12 @@ int main(int argc, char **argv){
 	// while(!speed_read) {
 	// 	ros::spinOnce();
 	// }
-	RaspiRobot::getInstance()->turnLeft(90);
-	delay(5000);
+	// RaspiRobot::getInstance()->turnLeft(90);
+	// delay(5000);
 	// RaspiRobot::getInstance()->turnLeft(45);
 	// delay(5000);
-	// RaspiRobot::getInstance()->turnRight(90);
-	// delay(5000);
+	RaspiRobot::getInstance()->turnRight(90);
+	delay(5000);
 	// RaspiRobot::getInstance()->turnRight(45);
 	// delay(5000);
 	// RaspiRobot::getInstance()->rotate_clockwise(90);

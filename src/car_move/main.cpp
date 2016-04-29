@@ -241,7 +241,7 @@ int main(int argc, char **argv){
 			avoidObstacle();
 			have_avoid = true;
 		}else{
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, HALF_SPEED_EN);
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
 		}
 	}	
 
@@ -258,7 +258,7 @@ int main(int argc, char **argv){
 	// 		//randomwalk
 	// 	}else{
 	// 		if(region == 3){
-	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, HALF_SPEED_EN);
+	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 	// 		}else if(region == 2){
 	// 			if(sideFromBarcode == RIGHT){
 	// 				RaspiRobot::getInstance()->turnLeft(30);

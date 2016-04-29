@@ -92,8 +92,8 @@ void RaspiRobot::setMotors(uchar leftIn, uchar leftOut, uchar rightIn, uchar rig
 	digitalWrite(LEFT_OUT_PIN, leftOut);
 	digitalWrite(RIGHT_IN_PIN, rightIn);
 	digitalWrite(RIGHT_OUT_PIN, rightOut);
-	softPwmWrite(LEFT_EN_PWM, leftEn-10);
-	softPwmWrite(RIGHT_EN_PWM, rightEn);
+	softPwmWrite(LEFT_EN_PWM, leftEn);
+	softPwmWrite(RIGHT_EN_PWM, rightEn-10);
 }
 
 void RaspiRobot::setMotors1(uchar leftIn, uchar leftOut, uchar rightIn, uchar rightOut, uchar leftEn, uchar rightEn, uchar last_time)

@@ -35,10 +35,10 @@ int sideFromBarcode;
 
 int getRegionFromCam(){
 	ros::spinOnce();
-	delay(1500);
+	delay(10000);
 
 	float degree = 0.0;
-	float unit_degree = 12.0;
+	float unit_degree = 9.0;
 	while(!barcode_exist && degree < 360.0){
 		degree += unit_degree/3; //data amendment
 		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
@@ -49,7 +49,7 @@ int getRegionFromCam(){
 	barcode_exist = false;
 
 	if(degree <= 360.0){
-		if(barcode_distance > 80.0){
+		if(barcode_distance > 110.0){
 			return 3;
 		}else if(barcode_distance > 50.0){
 			return 2;
@@ -132,7 +132,6 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 	}
 
 	if(mid_x > 300 && mid_x < 340){
-		ROS_INFO("true");
 		barcode_exist = true;
 	}
 	
@@ -154,6 +153,7 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 	}else{
 		sideFromBarcode = LEFT;
 	}
+	ROS_INFO("side:%d", sideFromBarcode);
 }
 
 // void infraredCheck(const std_msgs::String::ConstPtr& msg){
@@ -296,6 +296,7 @@ int main(int argc, char **argv){
 		if(region == 3){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
+
 			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();

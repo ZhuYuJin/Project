@@ -178,7 +178,7 @@ bool obstacleDetected(){
 	distance -= distance_min;
 	distance -= distance_max;
 	distance /= 5;
-	ROS_INFO("I heard: [%f]", distance);
+	ROS_INFO("Distance from echo: [%f]", distance);
 
 	//if distance is smaller than 15 and bigger than 0. 
 	//Barcode does not exist at the same time. 
@@ -214,6 +214,7 @@ bool searchNavigationSignal()
 	startMicrosecond=t1.tv_sec*1000000+t1.tv_usec;
 	RaspiRobot::getInstance()->forwardBySpeed(FULL_SPEED_EN);
 	while(!laser){
+		laser = RaspiRobot::getInstance()->checkNavigationLaser();
 		gettimeofday(&t2,NULL);
 		endMicrosecond=t2.tv_sec*1000000+t2.tv_usec;
 		if((endMicrosecond-startMicrosecond) > 10000000.0){

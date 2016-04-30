@@ -38,7 +38,7 @@ int getRegionFromCam(){
 	ros::spinOnce();
 
 	float degree = 0.0;
-	float unit_degree = 9.0;
+	float unit_degree = 15.0;
 	while(!barcode_exist && degree < 360.0){
 		degree += unit_degree/3; //data amendment
 		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
@@ -281,65 +281,47 @@ int main(int argc, char **argv){
 		//scan QR
 
 
-	// region = getRegionFromCam();
+	region = getRegionFromCam();
 
-	// while(region == 0){
-	// 	//if QR not found
-	// 	//randomwalk
-	// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-	// 	region = getRegionFromCam();
-	// }
+	while(region == 0){
+		//if QR not found
+		//randomwalk
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+		region = getRegionFromCam();
+	}
 
-	// bool docked = false;
-	// while(!docked){
-	// 	if(region == 3){
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-	// 	}else if(region == 2){
-	// 		// if(sideFromBarcode == RIGHT){
-	// 			// RaspiRobot::getInstance()->rotate_anticlockwise(30);
-	// 		searchNavigationSignal();
-	// 		// }else if(sideFromBarcode == LEFT){
-	// 			// RaspiRobot::getInstance()->rotate_clockwise(30);
-	// 			// searchNavigationSignal();
-	// 		// }
-	// 		region = getRegionFromCam();
-	// 		// while(region != 0){
-	// 		// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-	// 		// 	region = getRegionFromCam();
-	// 		// }
-	// 		float t = barcode_distance/FULL_SPEED;
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
-	// 		docked = true;
-	// 		break;
-	// 	}else{
-	// 		// if(sideFromBarcode == RIGHT){
-	// 			RaspiRobot::getInstance()->rotate_anticlockwise(90);
-	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-	// 		// }else if(sideFromBarcode == LEFT){
-	// 			// RaspiRobot::getInstance()->rotate_clockwise(90);
-	// 			// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-	// 		// }
-	// 	}
-	// 	region = getRegionFromCam();
-	// }
-
-	getRegionFromCam();
-
-	ROS_INFO("sideFromBarcode------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	shutdown\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------\
-	------------------------------------------------------------");
+	bool docked = false;
+	while(!docked){
+		if(region == 3){
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+		}else if(region == 2){
+			if(sideFromBarcode == RIGHT){
+				RaspiRobot::getInstance()->rotate_anticlockwise(30);
+				searchNavigationSignal();
+			}else if(sideFromBarcode == LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(30);
+				searchNavigationSignal();
+			}
+			region = getRegionFromCam();
+			// while(region != 0){
+			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+			// 	region = getRegionFromCam();
+			// }
+			float t = barcode_distance/FULL_SPEED;
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+			docked = true;
+			break;
+		}else{
+			// if(sideFromBarcode == RIGHT){
+				RaspiRobot::getInstance()->rotate_anticlockwise(90);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			// }else if(sideFromBarcode == LEFT){
+				// RaspiRobot::getInstance()->rotate_clockwise(90);
+				// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			// }
+		}
+		region = getRegionFromCam();
+	}
 
 	RaspiRobot::getInstance()->stop();
 

@@ -296,10 +296,8 @@ ROS_INFO("region:%d", region);
 	bool docked = false;
 	while(!docked){
 		if(region == 3){
-ROS_INFO("region3");
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
-ROS_INFO("region2");
 			// if(sideFromBarcode == RIGHT){
 				// RaspiRobot::getInstance()->rotate_anticlockwise(30);
 			searchNavigationSignal();
@@ -308,14 +306,15 @@ ROS_INFO("region2");
 				// searchNavigationSignal();
 			// }
 			region = getRegionFromCam();
-			while(region != 0){
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-				region = getRegionFromCam();
-			}
+			// while(region != 0){
+			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+			// 	region = getRegionFromCam();
+			// }
+			float t = barcode_distance/FULL_SPEED;
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
 			docked = true;
 			break;
 		}else{
-ROS_INFO("region1");
 			// if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(90);
 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);

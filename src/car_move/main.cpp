@@ -140,23 +140,17 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 			X_mid
 		X3       	X4
 	*/
-	// int y_l = y_3-y_2;
-	// int y_r = y_4-y_1;
-	// if(y_l < y_r){
-	// 	sideFromBarcode = RIGHT;
-	// 	if(mid_x < 300){
-	// 		barcode_exist = true;
-	// 	}
-	// }else if(y_l == y_r){
-	// 	sideFromBarcode = MIDDLE;
-	// 	barcode_exist = true;
-	// }else{
-	// 	sideFromBarcode = LEFT;
-	// 	if(mid_x > 340){
-	// 		barcode_exist = true;
-	// 	}
-	// }
-	barcode_exist = true;
+	int y_l = y_3-y_2;
+	int y_r = y_4-y_1;
+	if(y_l < y_r){
+		sideFromBarcode = RIGHT;
+	}else if(y_l == y_r){
+		sideFromBarcode = MIDDLE;
+	}else{
+		sideFromBarcode = LEFT;
+	}
+	if(mid_x > 300 && mid_x < 340)
+		barcode_exist = true;
 }
 
 // void infraredCheck(const std_msgs::String::ConstPtr& msg){
@@ -331,7 +325,7 @@ int main(int argc, char **argv){
 
 	getRegionFromCam();
 
-ROS_INFO("------------------------------------------------------\
+	ROS_INFO("------------------------------------------------------\
 	------------------------------------------------------------\
 	------------------------------------------------------------\
 	shutdown\

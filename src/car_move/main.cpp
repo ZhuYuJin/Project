@@ -131,7 +131,7 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		if(i == 14) str = temp.c_str();
 	}
 
-	if(mid_x > 305 && mid_x < 335){
+	if(mid_x > 300 && mid_x < 340){
 		ROS_INFO("true");
 		barcode_exist = true;
 	}
@@ -281,44 +281,44 @@ int main(int argc, char **argv){
 	// while(!docked){
 		//scan QR
 
-	ros::spin();
 
-	// region = getRegionFromCam();
-	// while(region == 0){
-	// 	//if QR not found
-	// 	//randomwalk
-	// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-	// 	region = getRegionFromCam();
-	// }
+	region = getRegionFromCam();
+	while(region == 0){
+		//if QR not found
+		//randomwalk
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+		region = getRegionFromCam();
+	}
 
-	// bool docked = false;
-	// while(!docked){
-	// 	if(region == 3){
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-	// 	}else if(region == 2){
-	// 		if(sideFromBarcode == RIGHT){
-	// 			RaspiRobot::getInstance()->rotate_anticlockwise(30);
-	// 			searchNavigationSignal();
-	// 		}else if(sideFromBarcode == LEFT){
-	// 			RaspiRobot::getInstance()->rotate_clockwise(30);
-	// 			searchNavigationSignal();
-	// 		}
-
-	// 		region = getRegionFromCam();
-	// 		while(){
-	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-	// 		}
-	// 	}else{
-	// 		if(sideFromBarcode == RIGHT){
-	// 			RaspiRobot::getInstance()->rotate_anticlockwise(90);
-	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-	// 		}else if(sideFromBarcode == LEFT){
-	// 			RaspiRobot::getInstance()->rotate_clockwise(90);
-	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-	// 		}
-	// 	}
-	// 	region = getRegionFromCam();
-	// }
+	bool docked = false;
+	while(!docked){
+		region = getRegionFromCam();
+		if(region == 3){
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+		}else if(region == 2){
+			if(sideFromBarcode == RIGHT){
+				RaspiRobot::getInstance()->rotate_anticlockwise(30);
+				searchNavigationSignal();
+			}else if(sideFromBarcode == LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(30);
+				searchNavigationSignal();
+			}
+			region = getRegionFromCam();
+			while(region != 0){
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+				region = getRegionFromCam();
+			}
+			docked = true;
+		}else{
+			if(sideFromBarcode == RIGHT){
+				RaspiRobot::getInstance()->rotate_anticlockwise(90);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			}else if(sideFromBarcode == LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(90);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			}
+		}
+	}
 
 	RaspiRobot::getInstance()->stop();
 

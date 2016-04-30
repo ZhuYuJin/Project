@@ -45,6 +45,9 @@ int getRegionFromCam(){
 		ros::spinOnce();
 		delay(1500);
 	}
+
+	barcode_exist = false;
+
 	if(degree <= 360.0){
 		if(barcode_distance > 80.0){
 			return 3;
@@ -57,7 +60,6 @@ int getRegionFromCam(){
 		return 0;
 	}
 
-	barcode_exist = false;
 }
 
 void getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, double distance){

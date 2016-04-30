@@ -129,7 +129,7 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		if(i == 14) str = temp.c_str();
 	}
 
-	if(mid_x > 310 && mid_x < 330){
+	if(mid_x > 305 && mid_x < 335){
 		ROS_INFO("true");
 		barcode_exist = true;
 	}
@@ -280,6 +280,10 @@ int main(int argc, char **argv){
 		//scan QR
 
 	region = getRegionFromCam();
+	while(region != 0){
+		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+		region = getRegionFromCam();
+	}
 
 	// region = getRegionFromCam();
 	// while(region == 0){

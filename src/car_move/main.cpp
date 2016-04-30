@@ -130,10 +130,6 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		if(i == 13) y_4 = atof(temp.c_str());
 		if(i == 14) str = temp.c_str();
 	}
-
-	if(mid_x > 300 && mid_x < 340){
-		barcode_exist = true;
-	}
 	
 	getDistance(mid_x, mid_y, x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4, 9.825);
 
@@ -148,10 +144,17 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 	int y_r = y_4-y_1;
 	if(y_l < y_r){
 		sideFromBarcode = RIGHT;
+		if(mid_x < 300){
+			barcode_exist = true;
+		}
 	}else if(y_l == y_r){
 		sideFromBarcode = MIDDLE;
+		barcode_exist = true;
 	}else{
 		sideFromBarcode = LEFT;
+		if(mid_x > 340){
+			barcode_exist = true;
+		}
 	}
 	ROS_INFO("side:%d", sideFromBarcode);
 }

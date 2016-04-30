@@ -285,6 +285,7 @@ int main(int argc, char **argv){
 
 
 	region = getRegionFromCam();
+ROS_INFO("region:%d", region);
 	while(region == 0){
 		//if QR not found
 		//randomwalk
@@ -295,9 +296,10 @@ int main(int argc, char **argv){
 	bool docked = false;
 	while(!docked){
 		if(region == 3){
+ROS_INFO("region3");
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
-
+ROS_INFO("region2");
 			// if(sideFromBarcode == RIGHT){
 				// RaspiRobot::getInstance()->rotate_anticlockwise(30);
 			searchNavigationSignal();
@@ -313,6 +315,7 @@ int main(int argc, char **argv){
 			docked = true;
 			break;
 		}else{
+ROS_INFO("region1");
 			// if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(90);
 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);

@@ -17,10 +17,10 @@
     <param name="camera_frame_id" value="usb_cam" />
     <param name="framerate" value="30"/>
   </node>
-<!--   <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+  <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
     <remap from="image" to="/usb_cam/image_raw"/>
     <param name="autosize" value="true" />
-  </node> -->
+  </node> 
 
     <!--<node pkg="nodelet" type="nodelet" name="barcode_reader" args="load zbar_ros/barcode_reader_nodelet zbar_manager">-->
         <!--<param name="throttle_repeated_barcodes" type="double" value="2.0"/>-->

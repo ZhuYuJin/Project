@@ -281,11 +281,7 @@ int main(int argc, char **argv){
 	// while(!docked){
 		//scan QR
 
-	region = getRegionFromCam();
-	while(region != 0){
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-		region = getRegionFromCam();
-	}
+	ros::spin();
 
 	// region = getRegionFromCam();
 	// while(region == 0){

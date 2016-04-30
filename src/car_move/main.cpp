@@ -34,16 +34,17 @@ int region;
 int sideFromBarcode;
 
 int getRegionFromCam(){
+	delay(1000);
 	ros::spinOnce();
-	delay(10000);
 
 	float degree = 0.0;
 	float unit_degree = 15.0;
 	while(!barcode_exist && degree < 360.0){
 		degree += unit_degree/3; //data amendment
 		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
+		delay(1000);
 		ros::spinOnce();
-		delay(10000);
+		delay(1000);
 	}
 
 	barcode_exist = false;
@@ -243,8 +244,10 @@ int main(int argc, char **argv){
 	RaspiRobot::init(); //init robot controller
 
 	ros::NodeHandle n;
-
 	ros::Subscriber sub_bar = n.subscribe("barcode", 1000, barcodeCheck);
+	
+	delay(15000);//time for setup
+
 	// ros::Subscriber sub_inf = n.subscribe("infrared", 1000, infraredCheck);
 
 	// region = getRegionFromCam();
@@ -284,47 +287,57 @@ int main(int argc, char **argv){
 		//scan QR
 
 
-	region = getRegionFromCam();
-ROS_INFO("region:%d", region);
-	while(region == 0){
-		//if QR not found
-		//randomwalk
-		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-		region = getRegionFromCam();
-	}
+	// region = getRegionFromCam();
 
-	bool docked = false;
-	while(!docked){
-		if(region == 3){
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-		}else if(region == 2){
-			// if(sideFromBarcode == RIGHT){
-				// RaspiRobot::getInstance()->rotate_anticlockwise(30);
-			searchNavigationSignal();
-			// }else if(sideFromBarcode == LEFT){
-				// RaspiRobot::getInstance()->rotate_clockwise(30);
-				// searchNavigationSignal();
-			// }
-			region = getRegionFromCam();
-			// while(region != 0){
-			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-			// 	region = getRegionFromCam();
-			// }
-			float t = barcode_distance/FULL_SPEED;
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
-			docked = true;
-			break;
-		}else{
-			// if(sideFromBarcode == RIGHT){
-				RaspiRobot::getInstance()->rotate_anticlockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-			// }else if(sideFromBarcode == LEFT){
-				// RaspiRobot::getInstance()->rotate_clockwise(90);
-				// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-			// }
-		}
-		region = getRegionFromCam();
-	}
+	// while(region == 0){
+	// 	//if QR not found
+	// 	//randomwalk
+	// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+	// 	region = getRegionFromCam();
+	// }
+
+	// bool docked = false;
+	// while(!docked){
+	// 	if(region == 3){
+	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+	// 	}else if(region == 2){
+	// 		// if(sideFromBarcode == RIGHT){
+	// 			// RaspiRobot::getInstance()->rotate_anticlockwise(30);
+	// 		searchNavigationSignal();
+	// 		// }else if(sideFromBarcode == LEFT){
+	// 			// RaspiRobot::getInstance()->rotate_clockwise(30);
+	// 			// searchNavigationSignal();
+	// 		// }
+	// 		region = getRegionFromCam();
+	// 		// while(region != 0){
+	// 		// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+	// 		// 	region = getRegionFromCam();
+	// 		// }
+	// 		float t = barcode_distance/FULL_SPEED;
+	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+	// 		docked = true;
+	// 		break;
+	// 	}else{
+	// 		// if(sideFromBarcode == RIGHT){
+	// 			RaspiRobot::getInstance()->rotate_anticlockwise(90);
+	// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+	// 		// }else if(sideFromBarcode == LEFT){
+	// 			// RaspiRobot::getInstance()->rotate_clockwise(90);
+	// 			// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+	// 		// }
+	// 	}
+	// 	region = getRegionFromCam();
+	// }
+
+	getRegionFromCam();
+
+ROS_INFO("------------------------------------------------------\
+	------------------------------------------------------------\
+	------------------------------------------------------------\
+	shutdown\
+	------------------------------------------------------------\
+	------------------------------------------------------------\
+	------------------------------------------------------------");
 
 	RaspiRobot::getInstance()->stop();
 

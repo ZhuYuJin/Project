@@ -19,6 +19,7 @@
 #define RIGHT_EN_PWM	4
 #define TRIGGER_PIN		21
 #define ECHO_PIN		22
+#define LASER_PIN		23
 
 //speed of the car: 50-34cm/s 70-46cm/s
 static int FULL_SPEED = 90;
@@ -51,6 +52,7 @@ class RaspiRobot
 		void rotate_anticlockwise(float degree, int speed, float wheelbase);
 		float getDistance();
 		unsigned int getVoltage();
+		bool checkNavigationLaser();
 };
 
 RaspiRobot *RaspiRobot::getInstance()
@@ -82,6 +84,7 @@ bool RaspiRobot::init()
 	softPwmCreate(RIGHT_EN_PWM, 0, 100);
 	pinMode(TRIGGER_PIN, OUTPUT);
 	pinMode(ECHO_PIN, INPUT);
+	pinMode(LASER_PIN, INPUT);
 	return true;
 }
 
@@ -318,4 +321,14 @@ float RaspiRobot::getDistance(float minDistance,float maxDistance,int count,int 
 float RaspiRobot::getDistance()
 {
 	return getDistance(2.0,450.0,10,20);
+}
+
+bool RaspiRobot::checkNavigationLaser()
+{
+	int laser = digitalRead(LASER_PIN);
+	if(laser == HIGH){
+		return false;
+	}else{
+		return true;
+	}
 }

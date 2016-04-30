@@ -30,7 +30,7 @@ bool infrared_exist = false;
 float infrared_distance;
 
 /* region */
-bool region;
+int region;
 int sideFromBarcode;
 
 int getRegionFromCam(){
@@ -40,12 +40,12 @@ int getRegionFromCam(){
 	float degree = 0.0;
 	float unit_degree = 15.0;
 	while(!barcode_exist && degree < 360.0){
-		degree += unit_degree;
+		degree += unit_degree/3; //data amendment
 		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
 		ros::spinOnce();
 		delay(1500);
 	}
-	if(degree < 360.0){
+	if(degree <= 360.0){
 		if(barcode_distance > 80.0){
 			return 3;
 		}else if(barcode_distance > 50.0){
@@ -97,6 +97,9 @@ void getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, i
 	z += sqrt(pow(d,2) / (pow((k_mid-k4),2) + pow((p_mid-p4),2)));
 
 	z = z/4;
+
+	ROS_INFO("Distance from cam: [%f]", z);
+
 }
 
 void barcodeCheck(const std_msgs::String::ConstPtr& msg){
@@ -276,7 +279,7 @@ int main(int argc, char **argv){
 	// while(!docked){
 		//scan QR
 
-	getRegionFromCam();
+	region = getRegionFromCam();
 
 	// region = getRegionFromCam();
 	// while(region == 0){

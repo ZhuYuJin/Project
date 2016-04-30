@@ -49,7 +49,7 @@ int getRegionFromCam(){
 	barcode_exist = false;
 
 	if(degree <= 360.0){
-		if(barcode_distance > 110.0){
+		if(barcode_distance > 150.0){
 			return 3;
 		}else if(barcode_distance > 50.0){
 			return 2;
@@ -62,7 +62,7 @@ int getRegionFromCam(){
 
 }
 
-void getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, double distance){
+float getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, double distance){
 	row = 640;
 	col = 480;
 	z = 0.0;
@@ -102,6 +102,7 @@ void getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, i
 
 	ROS_INFO("Distance from cam: [%f]", z);
 
+	return z;
 }
 
 void barcodeCheck(const std_msgs::String::ConstPtr& msg){
@@ -131,32 +132,30 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		if(i == 14) str = temp.c_str();
 	}
 	
-	getDistance(mid_x, mid_y, x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4, 9.825);
-
-	barcode_distance = z;
+	barcode_distance = getDistance(mid_x, mid_y, x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4, 9.825);
 
 	/*
 		X2       	X1
 			X_mid
 		X3       	X4
 	*/
-	int y_l = y_3-y_2;
-	int y_r = y_4-y_1;
-	if(y_l < y_r){
-		sideFromBarcode = RIGHT;
-		if(mid_x < 300){
-			barcode_exist = true;
-		}
-	}else if(y_l == y_r){
-		sideFromBarcode = MIDDLE;
-		barcode_exist = true;
-	}else{
-		sideFromBarcode = LEFT;
-		if(mid_x > 340){
-			barcode_exist = true;
-		}
-	}
-	ROS_INFO("side:%d", sideFromBarcode);
+	// int y_l = y_3-y_2;
+	// int y_r = y_4-y_1;
+	// if(y_l < y_r){
+	// 	sideFromBarcode = RIGHT;
+	// 	if(mid_x < 300){
+	// 		barcode_exist = true;
+	// 	}
+	// }else if(y_l == y_r){
+	// 	sideFromBarcode = MIDDLE;
+	// 	barcode_exist = true;
+	// }else{
+	// 	sideFromBarcode = LEFT;
+	// 	if(mid_x > 340){
+	// 		barcode_exist = true;
+	// 	}
+	// }
+	barcode_exist = true;
 }
 
 // void infraredCheck(const std_msgs::String::ConstPtr& msg){
@@ -295,14 +294,13 @@ int main(int argc, char **argv){
 
 	bool docked = false;
 	while(!docked){
-		region = getRegionFromCam();
 		if(region == 3){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
 
 			// if(sideFromBarcode == RIGHT){
 				// RaspiRobot::getInstance()->rotate_anticlockwise(30);
-				searchNavigationSignal();
+			searchNavigationSignal();
 			// }else if(sideFromBarcode == LEFT){
 				// RaspiRobot::getInstance()->rotate_clockwise(30);
 				// searchNavigationSignal();
@@ -313,15 +311,17 @@ int main(int argc, char **argv){
 				region = getRegionFromCam();
 			}
 			docked = true;
+			break;
 		}else{
-			if(sideFromBarcode == RIGHT){
+			// if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(90);
 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-			}else if(sideFromBarcode == LEFT){
-				RaspiRobot::getInstance()->rotate_clockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-			}
+			// }else if(sideFromBarcode == LEFT){
+				// RaspiRobot::getInstance()->rotate_clockwise(90);
+				// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			// }
 		}
+		region = getRegionFromCam();
 	}
 
 	RaspiRobot::getInstance()->stop();

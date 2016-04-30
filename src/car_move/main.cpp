@@ -38,7 +38,7 @@ int getRegionFromCam(){
 	ros::spinOnce();
 
 	float degree = 0.0;
-	float unit_degree = 15.0;
+	float unit_degree = 9.0;
 	while(!barcode_exist && degree < 360.0){
 		degree += unit_degree/3; //data amendment
 		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);

@@ -43,7 +43,7 @@ int getRegionFromCam(){
 		degree += unit_degree/3; //data amendment
 		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
 		ros::spinOnce();
-		delay(1500);
+		delay(10000);
 	}
 
 	barcode_exist = false;

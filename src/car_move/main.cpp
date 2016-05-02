@@ -296,11 +296,11 @@ int main(int argc, char **argv){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
 			// if(sideFromBarcode == RIGHT){
-			delay(1000);
+ROS_INFO("region:2");
 			RaspiRobot::getInstance()->rotate_anticlockwise(30);
-			delay(1000);
+ROS_INFO("searchNavigationSignal");
 			searchNavigationSignal();
-			delay(1000);
+ROS_INFO("getRegionFromCam");
 			// }else if(sideFromBarcode == LEFT){
 				// RaspiRobot::getInstance()->rotate_clockwise(45);
 				// searchNavigationSignal();

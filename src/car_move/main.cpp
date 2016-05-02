@@ -296,8 +296,11 @@ int main(int argc, char **argv){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
 			// if(sideFromBarcode == RIGHT){
+			delay(1000);
 			RaspiRobot::getInstance()->rotate_anticlockwise(30);
+			delay(1000);
 			searchNavigationSignal();
+			delay(1000);
 			// }else if(sideFromBarcode == LEFT){
 				// RaspiRobot::getInstance()->rotate_clockwise(45);
 				// searchNavigationSignal();
@@ -320,7 +323,7 @@ int main(int argc, char **argv){
 				// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
 			// }
 		}
-		region = getRegionFromCam();
+		// region = getRegionFromCam();
 	}
 
 	RaspiRobot::getInstance()->stop();

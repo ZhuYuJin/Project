@@ -296,8 +296,8 @@ int main(int argc, char **argv){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
 			// if(sideFromBarcode == RIGHT){
-				RaspiRobot::getInstance()->rotate_anticlockwise(30);
-				searchNavigationSignal();
+			RaspiRobot::getInstance()->rotate_anticlockwise(30);
+			searchNavigationSignal();
 			// }else if(sideFromBarcode == LEFT){
 				// RaspiRobot::getInstance()->rotate_clockwise(45);
 				// searchNavigationSignal();

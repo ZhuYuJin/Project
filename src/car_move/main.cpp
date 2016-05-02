@@ -223,12 +223,9 @@ bool searchNavigationSignal()
 		gettimeofday(&t2,NULL);
 		endMicrosecond = t2.tv_sec*1000000+t2.tv_usec;
 		if((endMicrosecond-startMicrosecond) > 10000000.0){
-ROS_INFO("time is up");
 			return false;
 		}
 	}
-ROS_INFO("found laser");
-	RaspiRobot::getInstance()->stop();
 	return true;
 }
 

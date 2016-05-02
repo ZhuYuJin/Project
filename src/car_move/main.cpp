@@ -216,16 +216,18 @@ bool searchNavigationSignal()
 	struct timeval t1, t2;
 	long startMicrosecond, endMicrosecond;
 	gettimeofday(&t1,NULL);
-	startMicrosecond=t1.tv_sec*1000000+t1.tv_usec;
+	startMicrosecond = t1.tv_sec*1000000+t1.tv_usec;
 	RaspiRobot::getInstance()->forwardBySpeed(FULL_SPEED_EN);
-	while(!laser){
+	while(laser > 0){
 		laser = RaspiRobot::getInstance()->checkNavigationLaser();
 		gettimeofday(&t2,NULL);
-		endMicrosecond=t2.tv_sec*1000000+t2.tv_usec;
+		endMicrosecond = t2.tv_sec*1000000+t2.tv_usec;
 		if((endMicrosecond-startMicrosecond) > 10000000.0){
+ROS_INFO("time is up");
 			return false;
 		}
 	}
+ROS_INFO("found laser");
 	RaspiRobot::getInstance()->stop();
 	return true;
 }
@@ -296,11 +298,11 @@ int main(int argc, char **argv){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
 			// if(sideFromBarcode == RIGHT){
-ROS_INFO("region:2");
+
 			RaspiRobot::getInstance()->rotate_anticlockwise(30);
-ROS_INFO("searchNavigationSignal");
+
 			searchNavigationSignal();
-ROS_INFO("getRegionFromCam");
+
 			// }else if(sideFromBarcode == LEFT){
 				// RaspiRobot::getInstance()->rotate_clockwise(45);
 				// searchNavigationSignal();
@@ -323,7 +325,7 @@ ROS_INFO("getRegionFromCam");
 				// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
 			// }
 		}
-		// region = getRegionFromCam();
+		region = getRegionFromCam();
 	}
 
 	RaspiRobot::getInstance()->stop();

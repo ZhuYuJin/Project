@@ -84,9 +84,6 @@ bool RaspiRobot::init()
 	softPwmCreate(RIGHT_EN_PWM, 0, 100);
 	pinMode(TRIGGER_PIN, OUTPUT);
 	pinMode(ECHO_PIN, INPUT);
-
-	pinMode(LASER_PIN, OUTPUT);
-	digitalWrite(LASER_PIN, 1);
 	pinMode(LASER_PIN, INPUT);
 	return true;
 }

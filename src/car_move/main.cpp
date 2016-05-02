@@ -302,7 +302,7 @@ int main(int argc, char **argv){
 			RaspiRobot::getInstance()->rotate_anticlockwise(30);
 
 			searchNavigationSignal();
-
+ROS_INFO("searchNavigationSignal done");
 			// }else if(sideFromBarcode == LEFT){
 				// RaspiRobot::getInstance()->rotate_clockwise(45);
 				// searchNavigationSignal();

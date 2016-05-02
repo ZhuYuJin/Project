@@ -218,7 +218,7 @@ bool searchNavigationSignal()
 	gettimeofday(&t1,NULL);
 	startMicrosecond = t1.tv_sec*1000000+t1.tv_usec;
 	RaspiRobot::getInstance()->forwardBySpeed(FULL_SPEED_EN);
-	while(laser > 0){
+	while(laser != 0){
 		laser = RaspiRobot::getInstance()->checkNavigationLaser();
 		gettimeofday(&t2,NULL);
 		endMicrosecond = t2.tv_sec*1000000+t2.tv_usec;

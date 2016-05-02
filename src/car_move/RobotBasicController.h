@@ -326,9 +326,5 @@ float RaspiRobot::getDistance()
 bool RaspiRobot::checkNavigationLaser()
 {
 	int laser = digitalRead(LASER_PIN);
-	if(laser == HIGH){
-		return false;
-	}else{
-		return true;
-	}
+	return laser;
 }

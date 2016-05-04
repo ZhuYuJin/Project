@@ -31,7 +31,11 @@ float infrared_distance;
 
 /* region */
 int region;
-int sideFromBarcode;
+int sideFromBarcode = -1;
+
+/*data from Arduino*/
+double voltage = -1;
+double encoder_distance = -1;
 
 int getRegionFromCam(){
 	delay(1000);
@@ -140,17 +144,36 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 			X_mid
 		X3       	X4
 	*/
-	int y_l = y_3-y_2;
-	int y_r = y_4-y_1;
-	if(y_l < y_r){
-		sideFromBarcode = RIGHT;
-	}else if(y_l == y_r){
-		sideFromBarcode = MIDDLE;
-	}else{
-		sideFromBarcode = LEFT;
+	if(sideFromBarcode == -1){
+		int y_l = y_3-y_2;
+		int y_r = y_4-y_1;
+		if(y_l < y_r){
+			sideFromBarcode = RIGHT;
+		}else if(y_l == y_r){
+			sideFromBarcode = MIDDLE;
+		}else{
+			sideFromBarcode = LEFT;
+		}
 	}
 	if(mid_x > 300 && mid_x < 340)
 		barcode_exist = true;
+}
+
+void readVoltage(const std_msgs::String::ConstPtr& msg){
+	ROS_INFO("I heard voltage: [%s]", msg->data.c_str());
+	voltage = atof(msg->data.c_str());
+}
+
+void readEncoder(const std_msgs::String::ConstPtr& msg){
+	ROS_INFO("I heard encoder: [%s]", msg->data.c_str());
+	double distance_left, distance_right;
+	stringstream ss(msg->data.c_str());
+	string temp;
+	ss >> temp;
+	distance_left = atof(temp.c_str());
+	ss >> temp;
+	distance_right = atof(temp.c_str());
+	encoder_distance = (distance_left+distance_right)/2;
 }
 
 // void infraredCheck(const std_msgs::String::ConstPtr& msg){
@@ -238,29 +261,24 @@ int main(int argc, char **argv){
 
 	ros::NodeHandle n;
 	ros::Subscriber sub_bar = n.subscribe("barcode", 1000, barcodeCheck);
-	
+	/*Arduino Node*/
+	ros::Publisher voltage_get = n.advertise<std_msgs::String>("voltage_get", 1000);
+  	ros::Publisher encoder_begin = n.advertise<std_msgs::String>("encoder_begin", 1000);
+  	ros::Publisher encoder_end = n.advertise<std_msgs::String>("encoder_end", 1000);
+  	ros::Subscriber voltage_chatter = n.subscribe("voltage_reader", 1000, readVoltage);
+	ros::Subscriber encoder_chatter = n.subscribe("encoder_reader", 1000, readEncoder);
+
 	delay(15000);//time for setup
 
-	// ros::Subscriber sub_inf = n.subscribe("infrared", 1000, infraredCheck);
+	ros::Rate loop_rate(1);
+	//get Voltage
+	std_msgs::String msg;
+  	msg.data = "getVoltage";
+	voltage_get.publish(msg);
+	ros::spinOnce();
+	loop_rate.sleep();
 
-	// region = getRegionFromCam();
-
-	// while(region == 0){
-	// 	//randomwalk
-	// 	region = getRegionFromCam();
-	// }
-
-	// while( region && (barcode_distance>20.0) ){
-	// 	if(region == 3){
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(2, 80);
-	// 	}else if(region == 2){
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 50);
-	// 	}else if(region == 1){
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, 40);
-	// 	}
-	// 	region = getRegionFromCam();
-	// }
-//section 2
+//section 2 avoid obstacle
 	// bool have_avoid = false;
 
 	// while(!have_avoid){
@@ -275,17 +293,15 @@ int main(int argc, char **argv){
 	// RaspiRobot::getInstance()->stop();
 
 //section 3
-	// bool docked = false;
-	// while(!docked){
-		//scan QR
 
-
+	sideFromBarcode = -1;
 	region = getRegionFromCam();
 
 	while(region == 0){
 		//if QR not found
 		//randomwalk
 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+		sideFromBarcode = -1;
 		region = getRegionFromCam();
 	}
 
@@ -294,34 +310,55 @@ int main(int argc, char **argv){
 		if(region == 3){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
-			// if(sideFromBarcode == RIGHT){
-
-			RaspiRobot::getInstance()->rotate_anticlockwise(30);
-
-			searchNavigationSignal();
-ROS_INFO("searchNavigationSignal done");
-			// }else if(sideFromBarcode == LEFT){
-				// RaspiRobot::getInstance()->rotate_clockwise(45);
-				// searchNavigationSignal();
-			// }
+			if(sideFromBarcode == RIGHT){
+				RaspiRobot::getInstance()->rotate_anticlockwise(30);
+				searchNavigationSignal();
+			}else if(sideFromBarcode == LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(45);
+				searchNavigationSignal();
+			}
+			sideFromBarcode = -1;
 			region = getRegionFromCam();
-			// while(region != 0){
-			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-			// 	region = getRegionFromCam();
-			// }
+			while(region != 0){
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+				sideFromBarcode = -1;
+				region = getRegionFromCam();
+			}
+			
+			//encoder begin
+			msg.data = "encoder begin";
+			encoder_begin.publish(msg);
+			ros::spinOnce();
+			loop_rate.sleep();
+
 			float t = barcode_distance/FULL_SPEED;
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+			
+			//encoder end
+			msg.data = "encoder end";
+			encoder_end.publish(msg);
+			loop_rate.sleep();
+			ros::spinOnce();
+			loop_rate.sleep();
+
+			double distance_t = barcode_distance-encoder_distance;
+			if(distance_t > 0){
+				t = distance_t/FULL_SPEED;
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+			}
+
 			docked = true;
 			break;
 		}else{
-			// if(sideFromBarcode == RIGHT){
+			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(90);
 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-			// }else if(sideFromBarcode == LEFT){
-				// RaspiRobot::getInstance()->rotate_clockwise(90);
-				// RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
-			// }
+			}else if(sideFromBarcode == LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(90);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			}
 		}
+		sideFromBarcode = -1;
 		region = getRegionFromCam();
 	}
 

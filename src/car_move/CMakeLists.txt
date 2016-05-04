@@ -129,6 +129,7 @@ add_executable(readVoltage readVoltage.cpp)
 add_executable(readEncoder readEncoder.cpp)
 add_executable(testSpeed testSpeed.cpp)
 add_executable(testSpin testSpin.cpp)
+add_executable(testArduino testArduino.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -154,6 +155,8 @@ target_link_libraries(testSpeed ${catkin_LIBRARIES}
 	wiringPi
 )
 target_link_libraries(testSpin ${catkin_LIBRARIES}
+)
+target_link_libraries(testArduino ${catkin_LIBRARIES}
 )
 
 #############

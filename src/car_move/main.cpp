@@ -58,7 +58,7 @@ int getRegionFromCam(){
 	barcode_exist = false;
 
 	if(degree <= 360.0){
-		if(barcode_distance > 150.0){
+		if(barcode_distance > 130.0){
 			return 3;
 		}else if(barcode_distance > 50.0){
 			return 2;

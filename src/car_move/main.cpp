@@ -72,6 +72,41 @@ int getRegionFromCam(){
 
 }
 
+int getRegionFromCam_l(){
+	delay(1000);
+	ros::spinOnce();
+
+	float degree = 0.0;
+	float unit_degree = 6.0;
+	while(!barcode_exist && degree < 360.0){
+		if(encoder_distance != -1){
+			degree += unit_degree/3; //data amendment
+			RaspiRobot::getInstance()->rotate_anticlockwise(unit_degree);
+		}else{
+			degree += unit_degree*2/3; //data amendment
+			RaspiRobot::getInstance()->rotate_anticlockwise(unit_degree*2);
+		}
+		delay(1000);
+		ros::spinOnce();
+		delay(1000);
+	}
+
+	barcode_exist = false;
+
+	if(degree <= 360.0){
+		if(barcode_distance > 130.0){
+			return 3;
+		}else if(barcode_distance > 50.0){
+			return 2;
+		}else{
+			return 1;
+		}
+	}else{
+		return 0;
+	}
+
+}
+
 float getDistance(int x_mid, int y_mid, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, double distance){
 	row = 640;
 	col = 480;
@@ -333,11 +368,7 @@ int main(int argc, char **argv){
 ROS_INFO("begin navigation");
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
-			}else if(sideFromBarcode == LEFT){
-				RaspiRobot::getInstance()->rotate_clockwise(30);
-				searchNavigationSignal();
-			}
-			if(sideFromBarcode != MIDDLE){
+
 				sideFromBarcode = -1;
 				region = getRegionFromCam();
 				while(region != 0){
@@ -345,8 +376,29 @@ ROS_INFO("begin navigation");
 					sideFromBarcode = -1;
 					region = getRegionFromCam();
 				}
-ROS_INFO("end search");				
+			}else if(sideFromBarcode == LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(30);
+				searchNavigationSignal();
+				
+				sideFromBarcode = -1;
+				region = getRegionFromCam_l();
+				while(region != 0){
+					RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+					sideFromBarcode = -1;
+					region = getRegionFromCam_l();
+				}
 			}
+ROS_INFO("end search");		
+// 			if(sideFromBarcode != MIDDLE){
+// 				sideFromBarcode = -1;
+// 				region = getRegionFromCam();
+// 				while(region != 0){
+// 					RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+// 					sideFromBarcode = -1;
+// 					region = getRegionFromCam();
+// 				}
+// ROS_INFO("end search");				
+// 			}
 			
 			// //encoder begin
 			// msg.data = "encoder begin";

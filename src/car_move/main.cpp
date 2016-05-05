@@ -322,18 +322,17 @@ int main(int argc, char **argv){
 ROS_INFO("begin navigation");
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
+			}else if(sideFromBarcode == LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(45);
+				searchNavigationSignal();
 			}
-			// }else if(sideFromBarcode == LEFT){
-			// 	RaspiRobot::getInstance()->rotate_clockwise(45);
-			// 	searchNavigationSignal();
-			// }
 			sideFromBarcode = -1;
 			region = getRegionFromCam();
-			// while(region != 0){
-			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-			// 	sideFromBarcode = -1;
-			// 	region = getRegionFromCam();
-			// }
+			while(region != 0){
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+				sideFromBarcode = -1;
+				region = getRegionFromCam();
+			}
 			
 			// //encoder begin
 			// msg.data = "encoder begin";

@@ -152,14 +152,14 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		int y_l = y_3-y_2;
 		int y_r = y_4-y_1;
 		if(y_l < y_r){
-			sideFromBarcode = RIGHT;
-			ROS_INFO("RIGHT");
+			sideFromBarcode = LEFT;
+			ROS_INFO("LEFT");
 		}else if(y_l == y_r){
 			sideFromBarcode = MIDDLE;
 			ROS_INFO("MIDDLE");
 		}else{
-			sideFromBarcode = LEFT;
-			ROS_INFO("LEFT");
+			sideFromBarcode = RIGHT;
+			ROS_INFO("RIGHT");
 		}
 	}
 
@@ -318,7 +318,7 @@ int main(int argc, char **argv){
 		if(region == 3){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
-			if(sideFromBarcode == LEFT){
+			if(sideFromBarcode == RIGHT){
 ROS_INFO("begin navigation");
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();

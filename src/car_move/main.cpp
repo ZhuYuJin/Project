@@ -46,7 +46,7 @@ int getRegionFromCam(){
 	while(!barcode_exist && degree < 360.0){
 		if(encoder_distance != -1){
 			degree += unit_degree/3; //data amendment
-			RaspiRobot::getInstance()->rotate_clockwise(unit_degree)
+			RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
 		}else{
 			degree += unit_degree*2/3; //data amendment
 			RaspiRobot::getInstance()->rotate_clockwise(unit_degree*2);

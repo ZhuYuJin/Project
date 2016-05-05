@@ -328,6 +328,7 @@ bool RaspiRobot::checkNavigationLaser()
 	int laser = digitalRead(LASER_PIN);
 	if(laser == 0){
 		stop();
+		reverseByTimeAndSpeed(0.05, 100);
 	}
 	return laser;
 }

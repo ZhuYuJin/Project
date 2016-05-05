@@ -341,7 +341,8 @@ ROS_INFO("begin navigation");
 			// loop_rate.sleep();
 
 			float t = barcode_distance/FULL_SPEED;
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+			// RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
 			
 			// //encoder end
 			// msg.data = "encoder end";

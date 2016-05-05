@@ -45,7 +45,11 @@ int getRegionFromCam(){
 	float unit_degree = 9.0;
 	while(!barcode_exist && degree < 360.0){
 		degree += unit_degree/3; //data amendment
-		RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
+		if(encoder_distance != -1){
+			RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
+		}else{
+			RaspiRobot::getInstance()->rotate_clockwise(unit_degree*2);
+		}
 		delay(1000);
 		ros::spinOnce();
 		delay(1000);
@@ -149,12 +153,16 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		int y_r = y_4-y_1;
 		if(y_l < y_r){
 			sideFromBarcode = RIGHT;
+			ROS_INFO("RIGHT");
 		}else if(y_l == y_r){
 			sideFromBarcode = MIDDLE;
+			ROS_INFO("MIDDLE");
 		}else{
 			sideFromBarcode = LEFT;
+			ROS_INFO("LEFT");
 		}
 	}
+
 	if(mid_x > 300 && mid_x < 340)
 		barcode_exist = true;
 }
@@ -262,37 +270,37 @@ int main(int argc, char **argv){
 	ros::NodeHandle n;
 	ros::Subscriber sub_bar = n.subscribe("barcode", 1000, barcodeCheck);
 	/*Arduino Node*/
-	ros::Publisher voltage_get = n.advertise<std_msgs::String>("voltage_get", 1000);
-  	ros::Publisher encoder_begin = n.advertise<std_msgs::String>("encoder_begin", 1000);
-  	ros::Publisher encoder_end = n.advertise<std_msgs::String>("encoder_end", 1000);
-  	ros::Subscriber voltage_chatter = n.subscribe("voltage_reader", 1000, readVoltage);
-	ros::Subscriber encoder_chatter = n.subscribe("encoder_reader", 1000, readEncoder);
+	// ros::Publisher voltage_get = n.advertise<std_msgs::String>("voltage_get", 1000);
+ //  	ros::Publisher encoder_begin = n.advertise<std_msgs::String>("encoder_begin", 1000);
+ //  	ros::Publisher encoder_end = n.advertise<std_msgs::String>("encoder_end", 1000);
+ //  	ros::Subscriber voltage_chatter = n.subscribe("voltage_reader", 1000, readVoltage);
+	// ros::Subscriber encoder_chatter = n.subscribe("encoder_reader", 1000, readEncoder);
 
 	delay(15000);//time for setup
 
-	ros::Rate loop_rate(1);
-	//get Voltage
-	std_msgs::String msg;
-  	msg.data = "getVoltage";
-	voltage_get.publish(msg);
-	ros::spinOnce();
-	loop_rate.sleep();
+// 	ros::Rate loop_rate(1);
+// 	//get Voltage
+// 	std_msgs::String msg;
+//   	msg.data = "getVoltage";
+// 	voltage_get.publish(msg);
+// 	ros::spinOnce();
+// 	loop_rate.sleep();
 
-//section 2 avoid obstacle
-	// bool have_avoid = false;
+// //section 2 avoid obstacle
+// 	// bool have_avoid = false;
 
-	// while(!have_avoid){
-	// 	if(obstacleDetected()){
-	// 		avoidObstacle();
-	// 		have_avoid = true;
-	// 	}else{
-	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, FULL_SPEED_EN);
-	// 	}
-	// }	
+// 	// while(!have_avoid){
+// 	// 	if(obstacleDetected()){
+// 	// 		avoidObstacle();
+// 	// 		have_avoid = true;
+// 	// 	}else{
+// 	// 		RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.2, FULL_SPEED_EN);
+// 	// 	}
+// 	// }	
 
-	// RaspiRobot::getInstance()->stop();
+// 	// RaspiRobot::getInstance()->stop();
 
-//section 3
+// //section 3
 
 	sideFromBarcode = -1;
 	region = getRegionFromCam();
@@ -311,6 +319,7 @@ int main(int argc, char **argv){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == 2){
 			if(sideFromBarcode == RIGHT){
+ROS_INFO("begin navigation");
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
 			}else if(sideFromBarcode == LEFT){
@@ -325,27 +334,27 @@ int main(int argc, char **argv){
 				region = getRegionFromCam();
 			}
 			
-			//encoder begin
-			msg.data = "encoder begin";
-			encoder_begin.publish(msg);
-			ros::spinOnce();
-			loop_rate.sleep();
+			// //encoder begin
+			// msg.data = "encoder begin";
+			// encoder_begin.publish(msg);
+			// ros::spinOnce();
+			// loop_rate.sleep();
 
 			float t = barcode_distance/FULL_SPEED;
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
 			
-			//encoder end
-			msg.data = "encoder end";
-			encoder_end.publish(msg);
-			loop_rate.sleep();
-			ros::spinOnce();
-			loop_rate.sleep();
+			// //encoder end
+			// msg.data = "encoder end";
+			// encoder_end.publish(msg);
+			// loop_rate.sleep();
+			// ros::spinOnce();
+			// loop_rate.sleep();
 
-			double distance_t = barcode_distance-encoder_distance;
-			if(distance_t > 0){
-				t = distance_t/FULL_SPEED;
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
-			}
+			// double distance_t = barcode_distance-encoder_distance;
+			// if(distance_t > 0){
+			// 	t = distance_t/FULL_SPEED;
+			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+			// }
 
 			docked = true;
 			break;

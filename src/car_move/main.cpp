@@ -16,7 +16,7 @@
 #define LEFT 		0
 
 #define AREA_CLOSE_DISTANCE 	50.0
-#define AREA_FAR_DISTANCE		130.0
+#define AREA_FAR_DISTANCE		120.0
 #define AREA_CLOSE 				1
 #define AREA_MIDDLE				2
 #define AREA_FAR				3
@@ -385,7 +385,7 @@ int main(int argc, char **argv){
 			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
-				RaspiRobot::getInstance()->rotate_anticlockwise(20);
+				RaspiRobot::getInstance()->rotate_anticlockwise(10);
 				sideFromBarcode = -1;
 				region = getRegionFromCam();
 				while(region == 0){
@@ -396,7 +396,7 @@ int main(int argc, char **argv){
 			}else if(sideFromBarcode == LEFT){
 				RaspiRobot::getInstance()->rotate_clockwise(30);
 				searchNavigationSignal();
-				RaspiRobot::getInstance()->rotate_clockwise(20);
+				RaspiRobot::getInstance()->rotate_clockwise(10);
 				sideFromBarcode = -1;
 				region = getRegionFromCam_l();
 				while(region == 0){

@@ -9,9 +9,18 @@
 
 #define PI 3.14159262653589793238462643383279
 
-#define RIGHT 2
-#define MIDDLE 1
-#define LEFT 0
+#define BIG_RIGHT 	4
+#define RIGHT 		3
+#define MIDDLE 		2
+#define BIG_LEFT 	1
+#define LEFT 		0
+
+#define AREA_CLOSE_DISTANCE 	50.0
+#define AREA_FAR_DISTANCE		130.0
+#define AREA_CLOSE 				1
+#define AREA_MIDDLE				2
+#define AREA_FAR				3
+#define AREA_NONE				0
 
 using namespace std;
 
@@ -59,15 +68,15 @@ int getRegionFromCam(){
 	barcode_exist = false;
 
 	if(degree <= 360.0){
-		if(barcode_distance > 130.0){
-			return 3;
-		}else if(barcode_distance > 50.0){
-			return 2;
+		if(barcode_distance > AREA_FAR_DISTANCE){
+			return AREA_FAR;
+		}else if(barcode_distance > AREA_CLOSE_DISTANCE){
+			return AREA_MIDDLE;
 		}else{
-			return 1;
+			return AREA_CLOSE;
 		}
 	}else{
-		return 0;
+		return AREA_NONE;
 	}
 
 }
@@ -94,15 +103,15 @@ int getRegionFromCam_l(){
 	barcode_exist = false;
 
 	if(degree <= 360.0){
-		if(barcode_distance > 130.0){
-			return 3;
-		}else if(barcode_distance > 50.0){
-			return 2;
+		if(barcode_distance > AREA_FAR_DISTANCE){
+			return AREA_FAR;
+		}else if(barcode_distance > AREA_CLOSE_DISTANCE){
+			return AREA_MIDDLE;
 		}else{
-			return 1;
+			return AREA_CLOSE;
 		}
 	}else{
-		return 0;
+		return AREA_NONE;
 	}
 
 }
@@ -185,17 +194,25 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		X3       	X4
 	*/
 	if(sideFromBarcode == -1){
-		int y_l = y_3-y_2;
-		int y_r = y_4-y_1;
-		if(y_l < y_r){
+		int y_l = abs(y_2-y_1);
+		int y_r = abs(y_3-y_4);
+		if(y_l > y_r){
 			sideFromBarcode = LEFT;
-			ROS_INFO("LEFT");
 		}else if(y_l == y_r){
 			sideFromBarcode = MIDDLE;
-			ROS_INFO("MIDDLE");
 		}else{
 			sideFromBarcode = RIGHT;
-			ROS_INFO("RIGHT");
+		}
+		if(barcode_distance > AREA_CLOSE_DISTANCE){
+			int y_diff = abs(y_l-y_r);
+			double y_threshold = 15.0-(barcode_distance-60.0)/10.0;
+			if(y_diff > y_threshold){
+				if(y_l > y_r){
+					sideFromBarcode = BIG_LEFT;
+				}else{
+					sideFromBarcode = BIG_RIGHT;
+				}
+			}
 		}
 	}
 
@@ -361,9 +378,9 @@ int main(int argc, char **argv){
 			region = getRegionFromCam();
 		}
 
-		if(region == 3){
+		if(region == AREA_FAR){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-		}else if(region == 2){
+		}else if(region == AREA_MIDDLE){
 			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
@@ -384,6 +401,12 @@ int main(int argc, char **argv){
 					sideFromBarcode = -1;
 					region = getRegionFromCam_l();
 				}
+			}else if(sideFromBarcode == BIG_RIGHT){
+				RaspiRobot::getInstance()->rotate_anticlockwise(90);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			}else if(sideFromBarcode == BIG_LEFT){
+				RaspiRobot::getInstance()->rotate_clockwise(90);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
 			}
 			
 			// //encoder begin

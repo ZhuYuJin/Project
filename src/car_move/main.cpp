@@ -385,6 +385,7 @@ int main(int argc, char **argv){
 			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
+				RaspiRobot::getInstance()->rotate_anticlockwise(20);
 				sideFromBarcode = -1;
 				region = getRegionFromCam();
 				while(region == 0){
@@ -395,6 +396,7 @@ int main(int argc, char **argv){
 			}else if(sideFromBarcode == LEFT){
 				RaspiRobot::getInstance()->rotate_clockwise(30);
 				searchNavigationSignal();
+				RaspiRobot::getInstance()->rotate_clockwise(20);
 				sideFromBarcode = -1;
 				region = getRegionFromCam_l();
 				while(region == 0){
@@ -403,11 +405,11 @@ int main(int argc, char **argv){
 					region = getRegionFromCam_l();
 				}
 			}else if(sideFromBarcode == BIG_RIGHT){
-				RaspiRobot::getInstance()->rotate_anticlockwise(90);
+				RaspiRobot::getInstance()->rotate_anticlockwise(120);
 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 				continue;
 			}else if(sideFromBarcode == BIG_LEFT){
-				RaspiRobot::getInstance()->rotate_clockwise(90);
+				RaspiRobot::getInstance()->rotate_clockwise(120);
 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 				continue;
 			}
@@ -438,11 +440,11 @@ int main(int argc, char **argv){
 			break;
 		}else{
 			if(sideFromBarcode == RIGHT){
-				RaspiRobot::getInstance()->rotate_anticlockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+				RaspiRobot::getInstance()->rotate_anticlockwise(120);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.6, FULL_SPEED_EN);
 			}else if(sideFromBarcode == LEFT){
-				RaspiRobot::getInstance()->rotate_clockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+				RaspiRobot::getInstance()->rotate_clockwise(120);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.6, FULL_SPEED_EN);
 			}
 		}
 	}

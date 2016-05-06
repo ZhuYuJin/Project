@@ -199,7 +199,7 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		}
 	}
 
-	if(mid_x > 300 && mid_x < 340)
+	if(mid_x > 290 && mid_x < 350)
 		barcode_exist = true;
 }
 

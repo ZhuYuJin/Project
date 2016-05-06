@@ -373,7 +373,7 @@ int main(int argc, char **argv){
 		while(region == 0){
 			//if QR not found
 			//randomwalk
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 			sideFromBarcode = -1;
 			region = getRegionFromCam();
 		}
@@ -403,10 +403,12 @@ int main(int argc, char **argv){
 				}
 			}else if(sideFromBarcode == BIG_RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+				continue;
 			}else if(sideFromBarcode == BIG_LEFT){
 				RaspiRobot::getInstance()->rotate_clockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+				continue;
 			}
 			
 			// //encoder begin
@@ -417,7 +419,7 @@ int main(int argc, char **argv){
 
 			float t = barcode_distance/FULL_SPEED;
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
-ROS_INFO("shut down");			
+		
 			// //encoder end
 			// msg.data = "encoder end";
 			// encoder_end.publish(msg);
@@ -436,10 +438,10 @@ ROS_INFO("shut down");
 		}else{
 			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 			}else if(sideFromBarcode == LEFT){
 				RaspiRobot::getInstance()->rotate_clockwise(90);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(1, FULL_SPEED_EN);
+				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 			}
 		}
 	}

@@ -33,6 +33,7 @@ int row, col; //row->mximum horizontal pixel number    col->maximum vertical pix
 int xc1, yc1, xc2, yc2;	//positions of feature points in the picture(described by pixel number)
 
 double z, d; //d->edge of barcode	z->distance of barcode(to be solved)
+double fix_number = 1.0508;
 
 /* infrared */
 bool infrared_exist = false;

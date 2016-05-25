@@ -50,6 +50,7 @@ double encoder_distance = -1;
 int getRegionFromCam(){
 	barcode_distance = -1;
 	sideFromBarcode = -1;
+	barcode_exist = false;
 
 	delay(1000);
 	ros::spinOnce();

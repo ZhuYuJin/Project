@@ -235,8 +235,6 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 	if(mid_x > 290 && mid_x < 350)
 		barcode_exist = true;
 
-//for test
-	sideFromBarcode = -1;
 }
 
 void readVoltage(const std_msgs::String::ConstPtr& msg){

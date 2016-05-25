@@ -386,8 +386,10 @@ int main(int argc, char **argv){
 		if(region == AREA_FAR){
 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
 		}else if(region == AREA_MIDDLE){
+ROS_INFO("sideFromBarcode:%d", sideFromBarcode);
 			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
+ROS_INFO("searchNavigationSignal");
 				searchNavigationSignal();
 ROS_INFO("getRegion again");
 				sideFromBarcode = -1;

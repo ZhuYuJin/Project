@@ -388,6 +388,7 @@ int main(int argc, char **argv){
 			if(sideFromBarcode == RIGHT){
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
+ROS_INFO("getRegion again");
 				sideFromBarcode = -1;
 				region = getRegionFromCam();
 				while(region == 0){

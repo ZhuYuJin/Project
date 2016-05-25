@@ -209,10 +209,13 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		int y_r = abs(y_3-y_4);
 		if(y_l > y_r){
 			sideFromBarcode = LEFT;
+			ROS_INFO("LEFT");
 		}else if(y_l == y_r){
 			sideFromBarcode = MIDDLE;
+			ROS_INFO("MIDDLE");
 		}else{
 			sideFromBarcode = RIGHT;
+			ROS_INFO("RIGHT");
 		}
 		if(barcode_distance > AREA_CLOSE_DISTANCE){
 			int y_diff = abs(y_l-y_r);
@@ -220,8 +223,10 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 			if(y_diff > y_threshold){
 				if(y_l > y_r){
 					sideFromBarcode = BIG_LEFT;
+					ROS_INFO("BIG_LEFT");
 				}else{
 					sideFromBarcode = BIG_RIGHT;
+					ROS_INFO("BIG_RIGHT");
 				}
 			}
 		}
@@ -377,94 +382,98 @@ int main(int argc, char **argv){
 	// 	region = getRegionFromCam();
 	// }
 
-	bool docked = false;
-	while(!docked){
-		sideFromBarcode = -1;
-		region = getRegionFromCam();
-		while(region == 0){
-			//if QR not found
-			//randomwalk
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-			sideFromBarcode = -1;
-			region = getRegionFromCam();
-		}
 
-		if(region == AREA_FAR){
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-		}else if(region == AREA_MIDDLE){
-ROS_INFO("sideFromBarcode:%d", sideFromBarcode);
-			if(sideFromBarcode == RIGHT){
-				RaspiRobot::getInstance()->rotate_anticlockwise(30);
-ROS_INFO("searchNavigationSignal");
-				searchNavigationSignal();
-ROS_INFO("getRegion again");
-				sideFromBarcode = -1;
-				region = getRegionFromCam();
-				while(region == 0){
-					RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-					sideFromBarcode = -1;
-					region = getRegionFromCam();
-				}
-			}else if(sideFromBarcode == LEFT){
-				RaspiRobot::getInstance()->rotate_clockwise(30);
-				searchNavigationSignal();
-				sideFromBarcode = -1;
-				region = getRegionFromCam_l();
-				while(region == 0){
-					RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
-					sideFromBarcode = -1;
-					region = getRegionFromCam_l();
-				}
-			}else if(sideFromBarcode == BIG_RIGHT){
-				RaspiRobot::getInstance()->rotate_anticlockwise(120);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-				RaspiRobot::getInstance()->rotate_clockwise(90);
-				sideFromBarcode = -1;
-				continue;
-			}else if(sideFromBarcode == BIG_LEFT){
-				RaspiRobot::getInstance()->rotate_clockwise(120);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
-				RaspiRobot::getInstance()->rotate_anticlockwise(90);
-				sideFromBarcode = -1;
-				continue;
-			}
+ros::spin();
+
+
+// 	bool docked = false;
+// 	while(!docked){
+// 		sideFromBarcode = -1;
+// 		region = getRegionFromCam();
+// 		while(region == 0){
+// 			//if QR not found
+// 			//randomwalk
+// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+// 			sideFromBarcode = -1;
+// 			region = getRegionFromCam();
+// 		}
+
+// 		if(region == AREA_FAR){
+// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+// 		}else if(region == AREA_MIDDLE){
+// ROS_INFO("sideFromBarcode:%d", sideFromBarcode);
+// 			if(sideFromBarcode == RIGHT){
+// 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
+// ROS_INFO("searchNavigationSignal");
+// 				searchNavigationSignal();
+// ROS_INFO("getRegion again");
+// 				sideFromBarcode = -1;
+// 				region = getRegionFromCam();
+// 				while(region == 0){
+// 					RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+// 					sideFromBarcode = -1;
+// 					region = getRegionFromCam();
+// 				}
+// 			}else if(sideFromBarcode == LEFT){
+// 				RaspiRobot::getInstance()->rotate_clockwise(30);
+// 				searchNavigationSignal();
+// 				sideFromBarcode = -1;
+// 				region = getRegionFromCam_l();
+// 				while(region == 0){
+// 					RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.1, FULL_SPEED_EN);
+// 					sideFromBarcode = -1;
+// 					region = getRegionFromCam_l();
+// 				}
+// 			}else if(sideFromBarcode == BIG_RIGHT){
+// 				RaspiRobot::getInstance()->rotate_anticlockwise(120);
+// 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+// 				RaspiRobot::getInstance()->rotate_clockwise(90);
+// 				sideFromBarcode = -1;
+// 				continue;
+// 			}else if(sideFromBarcode == BIG_LEFT){
+// 				RaspiRobot::getInstance()->rotate_clockwise(120);
+// 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.5, FULL_SPEED_EN);
+// 				RaspiRobot::getInstance()->rotate_anticlockwise(90);
+// 				sideFromBarcode = -1;
+// 				continue;
+// 			}
 			
-			// //encoder begin
-			// msg.data = "encoder begin";
-			// encoder_begin.publish(msg);
-			// ros::spinOnce();
-			// loop_rate.sleep();
+// 			// //encoder begin
+// 			// msg.data = "encoder begin";
+// 			// encoder_begin.publish(msg);
+// 			// ros::spinOnce();
+// 			// loop_rate.sleep();
 
-			float t = barcode_distance/FULL_SPEED;
-			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+// 			float t = barcode_distance/FULL_SPEED;
+// 			RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
 		
-			// //encoder end
-			// msg.data = "encoder end";
-			// encoder_end.publish(msg);
-			// loop_rate.sleep();
-			// ros::spinOnce();
-			// loop_rate.sleep();
+// 			// //encoder end
+// 			// msg.data = "encoder end";
+// 			// encoder_end.publish(msg);
+// 			// loop_rate.sleep();
+// 			// ros::spinOnce();
+// 			// loop_rate.sleep();
 
-			// double distance_t = barcode_distance-encoder_distance;
-			// if(distance_t > 0){
-			// 	t = distance_t/FULL_SPEED;
-			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
-			// }
+// 			// double distance_t = barcode_distance-encoder_distance;
+// 			// if(distance_t > 0){
+// 			// 	t = distance_t/FULL_SPEED;
+// 			// 	RaspiRobot::getInstance()->forwardByTimeAndSpeed(t, FULL_SPEED_EN);
+// 			// }
 
-			docked = true;
-			break;
-		}else{
-			if(sideFromBarcode == RIGHT){
-				RaspiRobot::getInstance()->rotate_anticlockwise(120);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.6, FULL_SPEED_EN);
-			}else if(sideFromBarcode == LEFT){
-				RaspiRobot::getInstance()->rotate_clockwise(120);
-				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.6, FULL_SPEED_EN);
-			}
-		}
-	}
+// 			docked = true;
+// 			break;
+// 		}else{
+// 			if(sideFromBarcode == RIGHT){
+// 				RaspiRobot::getInstance()->rotate_anticlockwise(120);
+// 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.6, FULL_SPEED_EN);
+// 			}else if(sideFromBarcode == LEFT){
+// 				RaspiRobot::getInstance()->rotate_clockwise(120);
+// 				RaspiRobot::getInstance()->forwardByTimeAndSpeed(0.6, FULL_SPEED_EN);
+// 			}
+// 		}
+// 	}
 
-	RaspiRobot::getInstance()->stop();
+// 	RaspiRobot::getInstance()->stop();
 
 	return 0;
 }

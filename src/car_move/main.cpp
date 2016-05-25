@@ -49,6 +49,7 @@ double encoder_distance = -1;
 
 int getRegionFromCam(){
 
+//eliminate the remaining message in network queue
 	delay(1000);
 	ros::spinOnce();
 	delay(1000);
@@ -213,17 +214,17 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		}else{
 			sideFromBarcode = RIGHT;
 		}
-		// if(barcode_distance > AREA_CLOSE_DISTANCE){
-		// 	int y_diff = abs(y_l-y_r);
-		// 	double y_threshold = 20.0-(barcode_distance-60.0)/10.0;
-		// 	if(y_diff > y_threshold){
-		// 		if(y_l > y_r){
-		// 			sideFromBarcode = BIG_LEFT;
-		// 		}else{
-		// 			sideFromBarcode = BIG_RIGHT;
-		// 		}
-		// 	}
-		// }
+		if(barcode_distance > AREA_CLOSE_DISTANCE){
+			int y_diff = abs(y_l-y_r);
+			double y_threshold = 20.0-(barcode_distance-60.0)/10.0;
+			if(y_diff > y_threshold){
+				if(y_l > y_r){
+					sideFromBarcode = BIG_LEFT;
+				}else{
+					sideFromBarcode = BIG_RIGHT;
+				}
+			}
+		}
 	}
 
 	if(mid_x > 290 && mid_x < 350)

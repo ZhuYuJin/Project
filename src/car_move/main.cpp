@@ -48,13 +48,16 @@ double voltage = -1;
 double encoder_distance = -1;
 
 int getRegionFromCam(){
+	barcode_distance = -1;
+	sideFromBarcode = -1;
+
 	delay(1000);
 	ros::spinOnce();
 
 	float degree = 0.0;
 	float unit_degree = 6.0;
 	while(!barcode_exist && degree < 360.0){
-		if(encoder_distance != -1){
+		if(barcode_distance != -1){
 			degree += unit_degree/3; //data amendment
 			RaspiRobot::getInstance()->rotate_clockwise(unit_degree);
 		}else{

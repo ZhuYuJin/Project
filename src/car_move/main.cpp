@@ -54,6 +54,10 @@ int getRegionFromCam(){
 
 	delay(1000);
 	ros::spinOnce();
+	delay(1000);
+	ros::spinOnce();
+	delay(1000);
+	ros::spinOnce();
 
 	float degree = 0.0;
 	float unit_degree = 6.0;

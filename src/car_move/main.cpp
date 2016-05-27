@@ -54,6 +54,8 @@ int getRegionFromCam(){
 	ros::spinOnce();
 	delay(1000);
 	ros::spinOnce();
+	delay(1000);
+	ros::spinOnce();
 
 	barcode_distance = -1;
 	sideFromBarcode = -1;

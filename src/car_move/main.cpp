@@ -236,7 +236,7 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		barcode_exist = true;
 
 //for testing
-	sideFromBarcode = -1;
+	// sideFromBarcode = -1;
 }
 
 void readVoltage(const std_msgs::String::ConstPtr& msg){

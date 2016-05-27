@@ -411,12 +411,10 @@ int main(int argc, char **argv){
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 			}
 		}else if(region == AREA_MIDDLE){
-ROS_INFO("sideFromBarcode:%d", sideFromBarcode);
 			if(sideFromBarcode == RIGHT){
+ROS_INFO("begin navigation");
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
-ROS_INFO("searchNavigationSignal");
 				searchNavigationSignal();
-ROS_INFO("getRegion again");
 				sideFromBarcode = -1;
 				region = getRegionFromCam();
 				while(region == 0){

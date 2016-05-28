@@ -211,13 +211,13 @@ void barcodeCheck(const std_msgs::String::ConstPtr& msg){
 		int y_r = abs(y_3-y_4);
 		if(y_l > y_r){
 			sideFromBarcode = LEFT;
-			ROS_INFO("LEFT");
+ROS_INFO("LEFT");
 		}else if(y_l == y_r){
 			sideFromBarcode = MIDDLE;
-			ROS_INFO("MIDDLE");
+ROS_INFO("MIDDLE");
 		}else{
 			sideFromBarcode = RIGHT;
-			ROS_INFO("RIGHT");
+ROS_INFO("RIGHT");
 		}
 		if(barcode_distance > AREA_CLOSE_DISTANCE){
 			int y_diff = abs(y_l-y_r);
@@ -415,6 +415,7 @@ int main(int argc, char **argv){
 ROS_INFO("begin navigation");
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
 				searchNavigationSignal();
+ROS_INFO("search station again");
 				sideFromBarcode = -1;
 				region = getRegionFromCam();
 				while(region == 0){

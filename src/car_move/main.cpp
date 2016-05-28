@@ -331,6 +331,7 @@ bool searchNavigationSignal()
 			return false;
 		}
 	}
+ROS_INFO("end navigation");
 	return true;
 }
 
@@ -412,8 +413,8 @@ int main(int argc, char **argv){
 			}
 		}else if(region == AREA_MIDDLE){
 			if(sideFromBarcode == RIGHT){
-ROS_INFO("begin navigation");
 				RaspiRobot::getInstance()->rotate_anticlockwise(30);
+ROS_INFO("begin navigation");
 				searchNavigationSignal();
 ROS_INFO("search station again");
 				sideFromBarcode = -1;
